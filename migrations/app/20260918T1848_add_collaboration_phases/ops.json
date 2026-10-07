@@ -1,0 +1,80 @@
+[
+  {
+    "id": "table.collaboration_phases",
+    "label": "Create table \"collaboration_phases\"",
+    "summary": "Creates table \"collaboration_phases\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "collaboration_phases"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"collaboration_phases\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"collaboration_phases\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"collaboration_phases\"",
+        "sql": "CREATE TABLE \"public\".\"collaboration_phases\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"description\" text NOT NULL,\n  \"displayOrder\" int4 DEFAULT 0 NOT NULL,\n  \"id\" text NOT NULL,\n  \"number\" int4 NOT NULL,\n  \"title\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"collaboration_phases\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"collaboration_phases\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.collaboration_phases.collaboration_phases_displayOrder_idx_607f1474",
+    "label": "Create index \"collaboration_phases_displayOrder_idx_607f1474\" on \"collaboration_phases\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "collaboration_phases_displayOrder_idx_607f1474",
+        "table": "collaboration_phases"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"collaboration_phases_displayOrder_idx_607f1474\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"collaboration_phases_displayOrder_idx_607f1474\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"collaboration_phases_displayOrder_idx_607f1474\"",
+        "sql": "CREATE INDEX \"collaboration_phases_displayOrder_idx_607f1474\" ON \"public\".\"collaboration_phases\" (\"displayOrder\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"collaboration_phases_displayOrder_idx_607f1474\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"collaboration_phases_displayOrder_idx_607f1474\""
+        ]
+      }
+    ]
+  }
+]

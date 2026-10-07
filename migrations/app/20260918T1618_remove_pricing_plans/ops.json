@@ -1,0 +1,39 @@
+[
+  {
+    "id": "dropTable.pricing_plans",
+    "label": "Drop table \"pricing_plans\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "pricing_plans"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"pricing_plans\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"pricing_plans\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "drop table \"pricing_plans\"",
+        "sql": "DROP TABLE \"public\".\"pricing_plans\""
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"pricing_plans\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"pricing_plans\""
+        ]
+      }
+    ]
+  }
+]

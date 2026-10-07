@@ -1,0 +1,119 @@
+[
+  {
+    "id": "table.login_attempts",
+    "label": "Create table \"login_attempts\"",
+    "summary": "Creates table \"login_attempts\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "login_attempts"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"login_attempts\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"login_attempts\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"login_attempts\"",
+        "sql": "CREATE TABLE \"public\".\"login_attempts\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"email\" text,\n  \"id\" text NOT NULL,\n  \"ipHash\" text,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"login_attempts\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"login_attempts\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.login_attempts.login_attempts_email_createdAt_idx_6e3c0d8a",
+    "label": "Create index \"login_attempts_email_createdAt_idx_6e3c0d8a\" on \"login_attempts\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "login_attempts_email_createdAt_idx_6e3c0d8a",
+        "table": "login_attempts"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"login_attempts_email_createdAt_idx_6e3c0d8a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"login_attempts_email_createdAt_idx_6e3c0d8a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"login_attempts_email_createdAt_idx_6e3c0d8a\"",
+        "sql": "CREATE INDEX \"login_attempts_email_createdAt_idx_6e3c0d8a\" ON \"public\".\"login_attempts\" (\"email\", \"createdAt\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"login_attempts_email_createdAt_idx_6e3c0d8a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"login_attempts_email_createdAt_idx_6e3c0d8a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.login_attempts.login_attempts_ipHash_createdAt_idx_8d6020ac",
+    "label": "Create index \"login_attempts_ipHash_createdAt_idx_8d6020ac\" on \"login_attempts\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "login_attempts_ipHash_createdAt_idx_8d6020ac",
+        "table": "login_attempts"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"login_attempts_ipHash_createdAt_idx_8d6020ac\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"login_attempts_ipHash_createdAt_idx_8d6020ac\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"login_attempts_ipHash_createdAt_idx_8d6020ac\"",
+        "sql": "CREATE INDEX \"login_attempts_ipHash_createdAt_idx_8d6020ac\" ON \"public\".\"login_attempts\" (\"ipHash\", \"createdAt\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"login_attempts_ipHash_createdAt_idx_8d6020ac\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"login_attempts_ipHash_createdAt_idx_8d6020ac\""
+        ]
+      }
+    ]
+  }
+]

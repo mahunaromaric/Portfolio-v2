@@ -1,0 +1,122 @@
+{
+  "header": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "experience": "Experience",
+    "services": "Services",
+    "collaboration": "Collaboration",
+    "contact": "Contact"
+  },
+  "hero": {
+    "available": "Available for new projects",
+    "greeting": "Hello, I am",
+    "title1": "Your idea, turned into a web app",
+    "title2": "that works.",
+    "subtitle": "Product Builder in Cotonou. I think through the product with you — need, journey, simplicity — then I build it: React, Next.js, Laravel, PostgreSQL. First exchange free, no commitment.",
+    "cta1": "Explore my work",
+    "cta2": "Let's talk about your idea",
+    "greetingSuffix": "I am"
+  },
+  "about": {
+    "label": "// about",
+    "title": "Neither a ticket-taker, nor an overpriced agency.",
+    "intro": "I work between product and code: together we clarify what must exist — and above all what must not — then I build a maintainable application, not a bloated machine.",
+    "approach": "Approach",
+    "approachText": "Understand the need, simplify the system, then deliver an experience that holds.",
+    "base": "Base",
+    "baseText": "Based in Cotonou, I build as close as possible to real needs.",
+    "automation": "Automation · AI",
+    "exploration": "Exploring"
+  },
+  "projects": {
+    "label": "// work",
+    "title": "What I've built.",
+    "intro": "Personal, internship and client projects — work speaks, public code whenever possible.",
+    "viewAll": "View all projects",
+    "noProjects": "No featured projects.",
+    "noImage": "No image",
+    "viewProject": "View {title}"
+  },
+  "experience": {
+    "label": "// journey",
+    "title": "My everyday stack.",
+    "intro": "No self-awarded skill bars: here are the technologies I actually ship with, plus my public GitHub activity as proof.",
+    "stackTitle": "Main stack",
+    "languagesTitle": "Languages — public repos",
+    "githubTitle": "GitHub activity",
+    "commits": "Commits",
+    "prs": "PRs",
+    "activeDays": "Active days"
+  },
+  "services": {
+    "label": "// services",
+    "title": "Three offers, no catalogue.",
+    "intro": "Pick your need: each starts with a free exchange and ends with a written proposal."
+  },
+  "collaboration": {
+    "label": "// collaboration",
+    "title": "We start with a chat. Free.",
+    "intro": "You tell the story, I listen and challenge. Then a clear proposal: scope, timeline, price, in writing.",
+    "cta": "Start with a free exchange"
+  },
+  "faq": {
+    "label": "// questions",
+    "title": "Frequent questions.",
+    "q1": "How much does a project cost?",
+    "a1": "Impossible to say without knowing the need: after a free exchange, you receive a written proposal — scope, timeline, price. No generic price list.",
+    "q2": "What timelines should I expect?",
+    "a2": "A showcase website takes weeks, an application takes months. The timeline is written in the proposal, with regular demos.",
+    "q3": "What happens after delivery?",
+    "a3": "You leave with the code and all access. Follow-up remains possible for evolutions and maintenance.",
+    "q4": "Why work with an early-career developer?",
+    "a4": "Because you pay for the work, not the overhead: direct exchange, careful code, honest prices — and each project is a reference to earn."
+  },
+  "contact": {
+    "available": "AVAILABLE",
+    "name": "Romaric GBENOU",
+    "role": "Product Builder · Developer",
+    "direct": "Contact me directly",
+    "choose": "Choose the channel that suits you:",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "form": "Form",
+    "response": "Reply within 24h",
+    "formTitle": "Contact form",
+    "back": "Back",
+    "yourName": "Your name *",
+    "yourEmail": "Your email *",
+    "yourPhone": "Your phone *",
+    "subject": "Subject",
+    "yourMessage": "Your message (10 chars min) *",
+    "send": "Send",
+    "sending": "Sending…",
+    "sent": "Message sent. Thank you!"
+  },
+  "footer": {
+    "thanks": "A project in mind?",
+    "build": "Write to me — reply within 24h",
+    "rights": "Product Builder · Developer — © {year}",
+    "allProjects": "All projects"
+  },
+  "work": {
+    "label": "// work",
+    "title": "What I've built.",
+    "intro": "Personal, internship and client projects — work speaks, public code whenever possible.",
+    "noPublished": "No published projects.",
+    "noImage": "No image"
+  },
+  "workDetail": {
+    "backToProjects": "Projects",
+    "viewSite": "View site",
+    "caseStudyComing": "Case study coming soon.",
+    "breadcrumbHome": "Home",
+    "breadcrumbProjects": "Projects",
+    "notFound": "Project not found"
+  },
+  "notFound": {
+    "title": "Project not found.",
+    "description": "This project does not exist or is no longer published.",
+    "back": "Back to projects"
+  }
+}

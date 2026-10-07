@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surfaceElevated: var(--surfaceElevated);
+  --color-surfaceSunken: var(--surfaceSunken);
+  --color-ink: var(--text);
+  --color-brandDark: var(--brandDark);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-borderStrong: var(--borderStrong);
+  --color-borderSubtle: var(--borderSubtle);
+  --color-accent: var(--accent);
+  --color-accentHover: var(--accentHover);
+  --color-accentMuted: var(--accentMuted);
+  --color-accentSolid: var(--accentSolid);
+  --color-clay: var(--clay);
+  --color-clayHover: var(--clayHover);
+  --font-sans: var(--font-manrope);
+  --font-serif: var(--font-instrument-serif);
+  --font-sig: var(--font-sacramento);
+}
+
+:root {
+  --bg: #FAFAF9;
+  --surface: #ffffff;
+  --surfaceElevated: #ffffff;
+  --surfaceSunken: #F5F5F4;
+  --text: #1c1917;
+  --secondary: #57534e;
+  --muted: #a8a29e;
+  --border: #E7E5E4;
+  --borderStrong: #D6D3D1;
+  --borderSubtle: rgba(231, 229, 228, 0.6);
+  --accent: #1E3A8A;
+  --accentHover: #172E6E;
+  --accentMuted: rgba(30, 58, 138, 0.08);
+  --accentSolid: #1E3A8A;
+  --clay: #C2410C;
+  --clayHover: #9A3412;
+  --brandDark: #0C0A09;
+  --max: 1280px;
+  color-scheme: light;
+}
+
+html.dark {
+  --bg: #0C0A09;
+  --surface: #1C1917;
+  --surfaceElevated: #292524;
+  --surfaceSunken: #1C1917;
+  --text: #FAFAF9;
+  --secondary: #D6D3D1;
+  --muted: #A8A29E;
+  --border: #3f3a37;
+  --borderStrong: #44403C;
+  --borderSubtle: rgba(41, 37, 36, 0.6);
+  --accent: #60A5FA;
+  --accentHover: #93C5FD;
+  --accentMuted: rgba(96, 165, 250, 0.12);
+  --accentSolid: #3B82F6;
+  --clay: #FB923C;
+  --clayHover: #FDBA74;
+  --brandDark: #0C0A09;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; overflow-x: clip; }
+h1, h2 { text-wrap: balance; }
+::selection { background: var(--accentMuted); }
+section[id] { scroll-margin-top: 96px; }
+.font-mono { font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-manrope), sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}

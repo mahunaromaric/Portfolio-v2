@@ -1,0 +1,26 @@
+# Romaric GBENOU — Product Builder
+
+> Développeur web à Cotonou (Bénin). Applications web sur mesure : React, Next.js, Laravel, PostgreSQL. Premier échange gratuit.
+
+## Site
+- Accueil : https://mahuna.is-a.dev/ (FR) et https://mahuna.is-a.dev/en (EN)
+- Réalisations : https://mahuna.is-a.dev/work
+- Contact : https://mahuna.is-a.dev/#contact — réponse sous 24h, WhatsApp +229 01 61 64 22 37
+
+## Offres
+1. Site vitrine qui convertit — présentation claire, rapide, référencée.
+2. Application web sur mesure — de l'idée au produit utilisable, démos régulières.
+3. Automatisation & IA — n8n, API, scripts sur mesure.
+
+## Méthode
+1. Échange gratuit (besoin, parcours, simplicité).
+2. Proposition écrite : périmètre, délai, prix.
+3. Construction + suivi, code et accès remis à la livraison.
+
+## Preuves
+- Code public : https://github.com/mahunaromaric
+- Études de cas avec code, technos et contexte sur les pages projets.
+
+## Contact
+- Email via le formulaire du site, WhatsApp +229 01 61 64 22 37.
+- Zone : Cotonou, Bénin — missions distantes acceptées.

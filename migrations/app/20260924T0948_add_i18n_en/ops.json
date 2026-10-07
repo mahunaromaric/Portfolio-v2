@@ -1,0 +1,170 @@
+[
+  {
+    "id": "column.public.collaboration_phases.descriptionEn",
+    "label": "Add column \"descriptionEn\" to \"collaboration_phases\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "descriptionEn",
+        "table": "collaboration_phases"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"descriptionEn\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "collaboration_phases",
+          "descriptionEn"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"descriptionEn\"",
+        "sql": "ALTER TABLE \"public\".\"collaboration_phases\" ADD COLUMN \"descriptionEn\" text"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"descriptionEn\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "collaboration_phases",
+          "descriptionEn"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.collaboration_phases.titleEn",
+    "label": "Add column \"titleEn\" to \"collaboration_phases\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "titleEn",
+        "table": "collaboration_phases"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"titleEn\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "collaboration_phases",
+          "titleEn"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"titleEn\"",
+        "sql": "ALTER TABLE \"public\".\"collaboration_phases\" ADD COLUMN \"titleEn\" text"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"titleEn\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "collaboration_phases",
+          "titleEn"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.services.descriptionEn",
+    "label": "Add column \"descriptionEn\" to \"services\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "descriptionEn",
+        "table": "services"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"descriptionEn\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "services",
+          "descriptionEn"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"descriptionEn\"",
+        "sql": "ALTER TABLE \"public\".\"services\" ADD COLUMN \"descriptionEn\" text"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"descriptionEn\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "services",
+          "descriptionEn"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.services.titleEn",
+    "label": "Add column \"titleEn\" to \"services\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "titleEn",
+        "table": "services"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"titleEn\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "services",
+          "titleEn"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"titleEn\"",
+        "sql": "ALTER TABLE \"public\".\"services\" ADD COLUMN \"titleEn\" text"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"titleEn\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "services",
+          "titleEn"
+        ]
+      }
+    ]
+  }
+]

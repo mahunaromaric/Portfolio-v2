@@ -1,0 +1,451 @@
+// use prisma-8
+
+// ─────────────────────────────────────────────
+// ENUMS (Prisma 8: domaine text + CHECK)
+// ─────────────────────────────────────────────
+
+enum PublicationStatus {
+  @@type("pg/text@1")
+  DRAFT = "DRAFT"
+  PUBLISHED = "PUBLISHED"
+  HIDDEN = "HIDDEN"
+}
+
+enum MediaType {
+  @@type("pg/text@1")
+  IMAGE = "IMAGE"
+  VIDEO = "VIDEO"
+  DOCUMENT = "DOCUMENT"
+}
+
+enum CaseStudyBlockType {
+  @@type("pg/text@1")
+  TEXT = "TEXT"
+  IMAGE = "IMAGE"
+  IMAGE_GALLERY = "IMAGE_GALLERY"
+  QUOTE = "QUOTE"
+  FEATURES = "FEATURES"
+  TECHNICAL = "TECHNICAL"
+}
+
+enum MessageStatus {
+  @@type("pg/text@1")
+  NEW = "NEW"
+  READ = "READ"
+  REPLIED = "REPLIED"
+  ARCHIVED = "ARCHIVED"
+}
+
+
+// ─────────────────────────────────────────────
+// PROFILE (singleton géré en applicatif)
+// ─────────────────────────────────────────────
+
+model Profile {
+  id                String   @id @default(uuid())
+  name              String
+  headline          String
+  headlineEn       String?
+  bio               String
+  bioEn            String?
+  location          String?
+  availabilityLabel String?
+  availabilityLabelEn String?
+  avatarUrl         String?
+  cvUrl             String?
+  contactEmail      String?
+
+  socialLinks       SocialLink[]
+
+  createdAt         TimestamptzString @default(now())
+  updatedAt         temporal.updatedAtString()
+
+  @@map("profiles")
+}
+
+model SocialLink {
+  id           String   @id @default(uuid())
+  platform     String
+  url          String
+  label        String?
+  displayOrder Int      @default(0)
+
+  profileId    String
+  profile      Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  @@index([profileId, displayOrder])
+  @@map("social_links")
+}
+
+
+// ─────────────────────────────────────────────
+// ADMIN (back-office V1 : session token hashé)
+// ─────────────────────────────────────────────
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  lastLoginAt  TimestamptzString?
+  totpSecret   String?
+  totpEnabled  Boolean  @default(false)
+
+  sessions     AdminSession[]
+
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  @@map("admin_users")
+}
+
+model AdminSession {
+  id          String   @id @default(uuid())
+  tokenHash   String   @unique
+  expiresAt   TimestamptzString
+  ipHash      String?
+  userAgent   String?
+
+  adminUserId String
+  adminUser   AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
+
+  createdAt   TimestamptzString @default(now())
+
+  @@index([adminUserId])
+  @@index([expiresAt])
+  @@map("admin_sessions")
+}
+
+// Tentatives de connexion échouées (rate-limit : 4 / 15 min par IP ou email)
+model LoginAttempt {
+  id        String   @id @default(uuid())
+  ipHash    String?
+  email     String?
+
+  createdAt TimestamptzString @default(now())
+
+  @@index([ipHash, createdAt])
+  @@index([email, createdAt])
+  @@map("login_attempts")
+}
+
+
+// ─────────────────────────────────────────────
+// PROJECT CATEGORIES
+// ─────────────────────────────────────────────
+
+model ProjectCategory {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  nameEn      String?
+  slug        String    @unique
+  description String?
+  descriptionEn String?
+
+  projects    Project[]
+
+  createdAt   TimestamptzString @default(now())
+  updatedAt   temporal.updatedAtString()
+
+  @@index([slug])
+  @@map("project_categories")
+}
+
+
+// ─────────────────────────────────────────────
+// PROJECTS
+// ─────────────────────────────────────────────
+
+model Project {
+  id               String            @id @default(uuid())
+  title            String
+  titleEn          String?
+  slug             String            @unique
+  shortDescription String
+  shortDescriptionEn String?
+  year             Int?
+  role             String?
+  roleEn           String?
+  status           PublicationStatus @default(PUBLISHED)
+  featured         Boolean           @default(false)
+  displayOrder     Int               @default(0)
+  liveUrl          String?
+  githubUrl        String?
+
+  categoryId       String
+  category         ProjectCategory   @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  technologies     ProjectTechnology[]
+  media            ProjectMedia[]
+  caseStudy        CaseStudy?
+
+  createdAt        TimestamptzString @default(now())
+  updatedAt        temporal.updatedAtString()
+
+  @@index([status])
+  @@index([featured])
+  @@index([categoryId])
+  @@index([displayOrder])
+  @@map("projects")
+}
+
+
+// ─────────────────────────────────────────────
+// TECHNOLOGY CATEGORIES + TECHNOLOGIES
+// ─────────────────────────────────────────────
+
+model TechnologyCategory {
+  id           String       @id @default(uuid())
+  name         String       @unique
+  slug         String       @unique
+  displayOrder Int          @default(0)
+
+  technologies Technology[]
+
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  @@index([displayOrder])
+  @@map("technology_categories")
+}
+
+model Technology {
+  id           String              @id @default(uuid())
+  name         String              @unique
+  slug         String              @unique
+  icon         String?
+  websiteUrl   String?
+  proficiency  Int?
+
+  categoryId   String?
+  category     TechnologyCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  projects     ProjectTechnology[]
+
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  @@index([categoryId])
+  @@map("technologies")
+}
+
+model ProjectTechnology {
+  projectId    String
+  technologyId String
+  displayOrder Int        @default(0)
+
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, technologyId])
+  @@index([technologyId])
+  @@index([projectId, displayOrder])
+  @@map("project_technologies")
+}
+
+
+// ─────────────────────────────────────────────
+// MEDIA (stockage S3/bucket : bucketKey + url)
+// ─────────────────────────────────────────────
+
+model Media {
+  id           String   @id @default(uuid())
+  bucketKey    String   @unique
+  url          String
+  mimeType     String
+  type         MediaType
+  size         Int
+  width        Int?
+  height       Int?
+  alt          String?
+
+  projectMedia ProjectMedia[]
+
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  @@index([type])
+  @@map("media")
+}
+
+model ProjectMedia {
+  projectId    String
+  mediaId      String
+  displayOrder Int     @default(0)
+  isCover      Boolean @default(false)
+
+  project      Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  media        Media   @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, mediaId])
+  @@index([projectId, displayOrder])
+  @@index([mediaId])
+  @@map("project_media")
+}
+
+
+// ─────────────────────────────────────────────
+// CASE STUDY (blocs polymorphes, médias via Json)
+// ─────────────────────────────────────────────
+
+model CaseStudy {
+  id        String   @id @default(uuid())
+  projectId String   @unique
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  blocks    CaseStudyBlock[]
+
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+
+  @@map("case_studies")
+}
+
+model CaseStudyBlock {
+  id           String             @id @default(uuid())
+  caseStudyId  String
+  caseStudy    CaseStudy          @relation(fields: [caseStudyId], references: [id], onDelete: Cascade)
+  type         CaseStudyBlockType
+  title        String?
+  content      Json?
+  displayOrder Int                @default(0)
+
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  @@index([caseStudyId, displayOrder])
+  @@map("case_study_blocks")
+}
+
+
+// ─────────────────────────────────────────────
+// EXPERIENCE / EDUCATION
+// ─────────────────────────────────────────────
+
+model Experience {
+  id           String            @id @default(uuid())
+  company      String
+  companyEn    String?
+  role         String
+  roleEn       String?
+  location     String?
+  startDate    TimestamptzString
+  endDate      TimestamptzString?
+  description  String?
+  descriptionEn String?
+  status       PublicationStatus @default(PUBLISHED)
+  displayOrder Int               @default(0)
+
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  @@index([status])
+  @@index([displayOrder])
+  @@map("experiences")
+}
+
+model Education {
+  id           String            @id @default(uuid())
+  institution  String
+  institutionEn String?
+  program      String
+  programEn    String?
+  location     String?
+  startDate    TimestamptzString
+  endDate      TimestamptzString?
+  description  String?
+  descriptionEn String?
+  status       PublicationStatus @default(PUBLISHED)
+  displayOrder Int               @default(0)
+
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  @@index([status])
+  @@index([displayOrder])
+  @@map("educations")
+}
+
+
+// ─────────────────────────────────────────────
+// SERVICES & TARIFS (home one-page, éditables)
+// ─────────────────────────────────────────────
+// SERVICES & TARIFS (home one-page, éditables)
+// ─────────────────────────────────────────────
+
+model Service {
+  id           String            @id @default(uuid())
+  title        String
+  titleEn      String?
+  description  String?
+  descriptionEn String?
+  displayOrder Int               @default(0)
+  status       PublicationStatus @default(PUBLISHED)
+
+  createdAt    TimestamptzString @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  @@index([status])
+  @@index([displayOrder])
+  @@map("services")
+}
+
+model Message {
+  id        String        @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  content   String
+  status    MessageStatus @default(NEW)
+  ipHash    String?
+  userAgent String?
+
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("messages")
+}
+
+// ─────────────────────────────────────────────
+// COLLABORATION (phases de processus)
+// ─────────────────────────────────────────────
+
+model CollaborationPhase {
+  id          String   @id @default(uuid())
+  number      Int
+  title       String
+  titleEn     String?
+  description String
+  descriptionEn String?
+  displayOrder Int    @default(0)
+
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+
+  @@index([displayOrder])
+  @@map("collaboration_phases")
+}
+
+// ─────────────────────────────────────────────
+// TEXTES DU SITE (surcharges des messages/*.json)
+// ─────────────────────────────────────────────
+// Clé plate ex "hero.title1". Table vide = JSON par défaut.
+// Ne jamais supprimer une clé utilisée par le code : seule la
+// surcharge se supprime (retour au défaut versionné).
+
+model SiteText {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  fr        String
+  en        String?
+
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+
+  @@map("site_texts")
+}

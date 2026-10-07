@@ -1,0 +1,83 @@
+[
+  {
+    "id": "table.site_texts",
+    "label": "Create table \"site_texts\"",
+    "summary": "Creates table \"site_texts\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "site_texts"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"site_texts\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"site_texts\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"site_texts\"",
+        "sql": "CREATE TABLE \"public\".\"site_texts\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"en\" text,\n  \"fr\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"key\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"site_texts\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"site_texts\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.site_texts.site_texts_key_key",
+    "label": "Add unique constraint on \"site_texts\" (key)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "site_texts_key_key",
+        "table": "site_texts"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"site_texts_key_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "site_texts_key_key",
+          "public",
+          "\"public\".\"site_texts\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"site_texts_key_key\"",
+        "sql": "ALTER TABLE \"public\".\"site_texts\" ADD CONSTRAINT \"site_texts_key_key\" UNIQUE (\"key\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"site_texts_key_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "site_texts_key_key",
+          "public",
+          "\"public\".\"site_texts\""
+        ]
+      }
+    ]
+  }
+]

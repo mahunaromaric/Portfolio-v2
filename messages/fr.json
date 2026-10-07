@@ -1,0 +1,122 @@
+{
+  "header": {
+    "home": "Accueil",
+    "about": "À propos",
+    "projects": "Projets",
+    "experience": "Expérience",
+    "services": "Services",
+    "collaboration": "Collaboration",
+    "contact": "Contact"
+  },
+  "hero": {
+    "available": "Disponible pour nouveaux projets",
+    "greeting": "Bonjour, je suis",
+    "title1": "Votre idée, transformée en application web",
+    "title2": "qui fonctionne.",
+    "subtitle": "Product Builder à Cotonou. Je pense le produit avec vous — besoin, parcours, simplicité — puis je le construis : React, Next.js, Laravel, PostgreSQL. Premier échange gratuit, sans engagement.",
+    "cta1": "Explorer mon travail",
+    "cta2": "Parlons de votre idée",
+    "greetingSuffix": "je suis"
+  },
+  "about": {
+    "label": "// à propos",
+    "title": "Ni simple exécutant, ni agence hors de prix.",
+    "intro": "Je travaille entre produit et code : on clarifie ensemble ce qui doit exister — et surtout ce qui ne doit pas exister — puis je développe une application maintenable, pas une usine à gaz.",
+    "approach": "Approche",
+    "approachText": "Comprendre le besoin, simplifier le système, puis livrer une expérience qui tient.",
+    "base": "Base",
+    "baseText": "Ancré à Cotonou, je construis au plus près des besoins réels.",
+    "automation": "Automatisation · IA",
+    "exploration": "En exploration"
+  },
+  "projects": {
+    "label": "// réalisations",
+    "title": "Ce que j'ai construit.",
+    "intro": "Projets personnels, de stage et missions clients : le travail parle — code public quand c'est possible.",
+    "viewAll": "Voir tous les projets",
+    "noProjects": "Aucun projet mis en avant.",
+    "noImage": "Aucune image",
+    "viewProject": "Voir {title}"
+  },
+  "experience": {
+    "label": "// parcours",
+    "title": "Stack pratiquée au quotidien.",
+    "intro": "Pas de barres de niveau : voici les technologies avec lesquelles je livre vraiment, et mon activité GitHub publique en preuve.",
+    "stackTitle": "Stack principale",
+    "languagesTitle": "Langages — dépôts publics",
+    "githubTitle": "Activité GitHub",
+    "commits": "Commits",
+    "prs": "PRs",
+    "activeDays": "Jours actifs"
+  },
+  "services": {
+    "label": "// services",
+    "title": "Trois offres, pas de catalogue.",
+    "intro": "Choisissez votre besoin : chacune démarre par un échange gratuit et se termine par une proposition écrite."
+  },
+  "collaboration": {
+    "label": "// collaboration",
+    "title": "On commence par discuter. Gratuitement.",
+    "intro": "Vous racontez, j'écoute et je challenge. Puis proposition claire : périmètre, délai, prix, par écrit.",
+    "cta": "Démarrer par un échange gratuit"
+  },
+  "faq": {
+    "label": "// questions",
+    "title": "Questions fréquentes.",
+    "q1": "Combien coûte un projet ?",
+    "a1": "Impossible à dire sans connaître le besoin : après un échange gratuit, vous recevez une proposition écrite — périmètre, délai, prix. Pas de grille générique.",
+    "q2": "Quels délais prévoir ?",
+    "a2": "Un site vitrine se compte en semaines, une application en mois. Le délai est écrit dans la proposition, avec des démos régulières.",
+    "q3": "Et après la livraison ?",
+    "a3": "Vous repartez avec le code et les accès. Un suivi reste possible pour les évolutions et la maintenance.",
+    "q4": "Pourquoi travailler avec un développeur en début de parcours ?",
+    "a4": "Parce que vous payez le travail, pas la structure : échange direct, code soigné, prix honnêtes — et chaque projet est une référence à mériter."
+  },
+  "contact": {
+    "available": "DISPONIBLE",
+    "name": "Romaric GBENOU",
+    "role": "Product Builder · Développeur",
+    "direct": "Me contacter directement",
+    "choose": "Choisissez le canal qui vous convient :",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "form": "Formulaire",
+    "response": "Réponse sous 24h",
+    "formTitle": "Formulaire de contact",
+    "back": "Retour",
+    "yourName": "Votre nom *",
+    "yourEmail": "Votre email *",
+    "yourPhone": "Votre téléphone *",
+    "subject": "Sujet",
+    "yourMessage": "Votre message (10 caractères min) *",
+    "send": "Envoyer",
+    "sending": "Envoi…",
+    "sent": "Message envoyé. Merci !"
+  },
+  "footer": {
+    "thanks": "Un projet en tête ?",
+    "build": "Écrivez-moi — réponse sous 24h",
+    "rights": "Product Builder · Développeur — © {year}",
+    "allProjects": "Tous les projets"
+  },
+  "work": {
+    "label": "// réalisations",
+    "title": "Ce que j'ai construit.",
+    "intro": "Projets personnels, de stage et missions clients : le travail parle — code public quand c'est possible.",
+    "noPublished": "Aucun projet publié.",
+    "noImage": "Aucune image"
+  },
+  "workDetail": {
+    "backToProjects": "Projets",
+    "viewSite": "Voir le site",
+    "caseStudyComing": "Étude de cas à venir.",
+    "breadcrumbHome": "Accueil",
+    "breadcrumbProjects": "Réalisations",
+    "notFound": "Projet introuvable"
+  },
+  "notFound": {
+    "title": "Projet introuvable.",
+    "description": "Ce projet n'existe pas ou n'est plus publié.",
+    "back": "Retour aux projets"
+  }
+}

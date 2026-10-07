@@ -1,0 +1,236 @@
+[
+  {
+    "id": "table.pricing_plans",
+    "label": "Create table \"pricing_plans\"",
+    "summary": "Creates table \"pricing_plans\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "pricing_plans"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"pricing_plans\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"pricing_plans\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"pricing_plans\"",
+        "sql": "CREATE TABLE \"public\".\"pricing_plans\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"ctaHref\" text DEFAULT '/#contact',\n  \"ctaLabel\" text DEFAULT 'Travaillons ensemble',\n  \"displayOrder\" int4 DEFAULT 0 NOT NULL,\n  \"features\" json,\n  \"highlighted\" bool DEFAULT false NOT NULL,\n  \"id\" text NOT NULL,\n  \"period\" text DEFAULT '/mois',\n  \"priceLabel\" text NOT NULL,\n  \"status\" text DEFAULT 'PUBLISHED' NOT NULL,\n  \"subtitle\" text,\n  \"title\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\"),\n  CONSTRAINT \"pricing_plans_status_check_4aaa56f2\" CHECK (\"status\" IN ('DRAFT', 'PUBLISHED', 'HIDDEN'))\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"pricing_plans\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"pricing_plans\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.services",
+    "label": "Create table \"services\"",
+    "summary": "Creates table \"services\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "services"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"services\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"services\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"services\"",
+        "sql": "CREATE TABLE \"public\".\"services\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"description\" text,\n  \"displayOrder\" int4 DEFAULT 0 NOT NULL,\n  \"id\" text NOT NULL,\n  \"status\" text DEFAULT 'PUBLISHED' NOT NULL,\n  \"title\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\"),\n  CONSTRAINT \"services_status_check_4aaa56f2\" CHECK (\"status\" IN ('DRAFT', 'PUBLISHED', 'HIDDEN'))\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"services\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"services\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.pricing_plans.pricing_plans_displayOrder_idx_607f1474",
+    "label": "Create index \"pricing_plans_displayOrder_idx_607f1474\" on \"pricing_plans\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "pricing_plans_displayOrder_idx_607f1474",
+        "table": "pricing_plans"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"pricing_plans_displayOrder_idx_607f1474\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"pricing_plans_displayOrder_idx_607f1474\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"pricing_plans_displayOrder_idx_607f1474\"",
+        "sql": "CREATE INDEX \"pricing_plans_displayOrder_idx_607f1474\" ON \"public\".\"pricing_plans\" (\"displayOrder\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"pricing_plans_displayOrder_idx_607f1474\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"pricing_plans_displayOrder_idx_607f1474\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.pricing_plans.pricing_plans_status_idx_e98638ab",
+    "label": "Create index \"pricing_plans_status_idx_e98638ab\" on \"pricing_plans\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "pricing_plans_status_idx_e98638ab",
+        "table": "pricing_plans"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"pricing_plans_status_idx_e98638ab\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"pricing_plans_status_idx_e98638ab\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"pricing_plans_status_idx_e98638ab\"",
+        "sql": "CREATE INDEX \"pricing_plans_status_idx_e98638ab\" ON \"public\".\"pricing_plans\" (\"status\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"pricing_plans_status_idx_e98638ab\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"pricing_plans_status_idx_e98638ab\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.services.services_displayOrder_idx_607f1474",
+    "label": "Create index \"services_displayOrder_idx_607f1474\" on \"services\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "services_displayOrder_idx_607f1474",
+        "table": "services"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"services_displayOrder_idx_607f1474\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"services_displayOrder_idx_607f1474\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"services_displayOrder_idx_607f1474\"",
+        "sql": "CREATE INDEX \"services_displayOrder_idx_607f1474\" ON \"public\".\"services\" (\"displayOrder\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"services_displayOrder_idx_607f1474\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"services_displayOrder_idx_607f1474\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.services.services_status_idx_e98638ab",
+    "label": "Create index \"services_status_idx_e98638ab\" on \"services\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "services_status_idx_e98638ab",
+        "table": "services"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"services_status_idx_e98638ab\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"services_status_idx_e98638ab\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"services_status_idx_e98638ab\"",
+        "sql": "CREATE INDEX \"services_status_idx_e98638ab\" ON \"public\".\"services\" (\"status\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"services_status_idx_e98638ab\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"services_status_idx_e98638ab\""
+        ]
+      }
+    ]
+  }
+]

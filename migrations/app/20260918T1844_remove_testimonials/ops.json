@@ -1,0 +1,39 @@
+[
+  {
+    "id": "dropTable.testimonials",
+    "label": "Drop table \"testimonials\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "testimonials"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"testimonials\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"testimonials\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "drop table \"testimonials\"",
+        "sql": "DROP TABLE \"public\".\"testimonials\""
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"testimonials\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"testimonials\""
+        ]
+      }
+    ]
+  }
+]
