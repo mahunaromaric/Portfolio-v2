@@ -4,13 +4,17 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { db } from "@/prisma/db";
+import { routing } from "@/i18n/routing";
 import { getProjectBySlug, getPublishedProjects } from "@/lib/dal/public";
 import { CaseStudyRenderer, type CaseBlock } from "@/components/site/CaseStudyRenderer";
 import { getTranslations } from "next-intl/server";
 
 export const revalidate = 60;
 const W = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8";
-export async function generateStaticParams() { const projects = await getPublishedProjects(); return projects.map((p) => ({ slug: p.slug })); }
+export async function generateStaticParams() {
+  const projects = await getPublishedProjects();
+  return routing.locales.flatMap((locale) => projects.map((p) => ({ locale, slug: p.slug })));
+}
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params; const project = await getProjectBySlug(slug); const t = await getTranslations({ locale, namespace: "workDetail" }); if (!project) return { title: t("notFound") };
   const cover = project.media.find((m) => m.link.isCover)?.media ?? project.media[0]?.media ?? null;

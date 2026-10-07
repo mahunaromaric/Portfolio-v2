@@ -26,7 +26,7 @@ function addSecurityHeaders(res: NextResponse, req: NextRequest) {
   }
   res.headers.set(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://challenges.cloudflare.com https://cdn.simpleicons.org https://cdn.jsdelivr.net https://api-free.deepl.com https://api.deepl.com; frame-src https://challenges.cloudflare.com;",
+    "default-src 'self'; manifest-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://challenges.cloudflare.com https://cdn.simpleicons.org https://cdn.jsdelivr.net https://api-free.deepl.com https://api.deepl.com; frame-src https://challenges.cloudflare.com;",
   );
   if (req.nextUrl.pathname.startsWith("/admin")) {
     res.headers.set("X-Robots-Tag", "noindex, nofollow");
