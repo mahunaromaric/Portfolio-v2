@@ -8,6 +8,9 @@
     "collaboration": "Collaboration",
     "contact": "Contact"
   },
+  "seo": {
+    "home": "Product Builder à Cotonou : applications web sur mesure React, Next.js, Laravel. Échange gratuit, proposition écrite."
+  },
   "hero": {
     "available": "Disponible pour nouveaux projets",
     "greeting": "Bonjour, je suis",

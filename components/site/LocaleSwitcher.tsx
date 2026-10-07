@@ -22,7 +22,7 @@ export function LocaleSwitcher() {
       <button
         onClick={() => switchLocale("fr")}
         disabled={isPending}
-        className={`px-2.5 py-1 rounded-full transition ${locale === "fr" ? "bg-brandDark text-white" : "text-secondary hover:text-ink"}`}
+        className={`px-2.5 py-2 min-h-[48px] min-w-[48px] inline-flex items-center justify-center rounded-full transition ${locale === "fr" ? "bg-brandDark text-white" : "text-secondary hover:text-ink"}`}
         aria-label="Français"
       >
         FR
@@ -30,7 +30,7 @@ export function LocaleSwitcher() {
       <button
         onClick={() => switchLocale("en")}
         disabled={isPending}
-        className={`px-2.5 py-1 rounded-full transition ${locale === "en" ? "bg-brandDark text-white" : "text-secondary hover:text-ink"}`}
+        className={`px-2.5 py-2 min-h-[48px] min-w-[48px] inline-flex items-center justify-center rounded-full transition ${locale === "en" ? "bg-brandDark text-white" : "text-secondary hover:text-ink"}`}
         aria-label="English"
       >
         EN

@@ -10,26 +10,29 @@ import { ScrollHeader } from "./ScrollHeader";
 
 const W = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8";
 
+/** Normalise les URL sociales legacy sans schéma (sinon lien relatif cassé). */
+export const extUrl = (url: string) => (/^https?:\/\//i.test(url) ? url : `https://${url}`);
+
 export async function SiteHeader() {
   const t = await getTranslations("header");
   return (
     <ScrollHeader>
       <div className={`${W} flex h-[72px] items-center justify-between`}>
-        <Link href="/" aria-label="Romaric GBENOU — accueil">
+        <Link href="/" aria-label="Romaric GBENOU — accueil" className="inline-flex min-h-[48px] items-center">
           <Logo />
         </Link>
         <div className="flex items-center gap-3">
-          <nav className="hidden lg:flex items-center gap-6 text-[13px] font-bold tracking-[0.04em] text-secondary">
-            <AnchorLink href="/#hero" className="hover:text-ink transition-colors">{t("home")}</AnchorLink>
-            <AnchorLink href="/#about" className="hover:text-ink transition-colors">{t("about")}</AnchorLink>
-            <AnchorLink href="/#projects" className="hover:text-ink transition-colors">{t("projects")}</AnchorLink>
-            <AnchorLink href="/#experience" className="hover:text-ink transition-colors">{t("experience")}</AnchorLink>
-            <AnchorLink href="/#services" className="hover:text-ink transition-colors">{t("services")}</AnchorLink>
-            <AnchorLink href="/#collaboration" className="hover:text-ink transition-colors">{t("collaboration")}</AnchorLink>
+          <nav className="hidden lg:flex items-center gap-4 text-[13px] font-bold tracking-[0.04em] text-secondary">
+            <AnchorLink href="/#hero" className="inline-flex min-h-[48px] items-center px-1 hover:text-ink transition-colors">{t("home")}</AnchorLink>
+            <AnchorLink href="/#about" className="inline-flex min-h-[48px] items-center px-1 hover:text-ink transition-colors">{t("about")}</AnchorLink>
+            <AnchorLink href="/#projects" className="inline-flex min-h-[48px] items-center px-1 hover:text-ink transition-colors">{t("projects")}</AnchorLink>
+            <AnchorLink href="/#experience" className="inline-flex min-h-[48px] items-center px-1 hover:text-ink transition-colors">{t("experience")}</AnchorLink>
+            <AnchorLink href="/#services" className="inline-flex min-h-[48px] items-center px-1 hover:text-ink transition-colors">{t("services")}</AnchorLink>
+            <AnchorLink href="/#collaboration" className="inline-flex min-h-[48px] items-center px-1 hover:text-ink transition-colors">{t("collaboration")}</AnchorLink>
           </nav>
           <ThemeToggle />
           <LocaleSwitcher />
-          <AnchorLink href="/#contact" className="rounded-full border border-ink px-4 py-1.5 text-[13px] font-bold text-ink transition-[background-color,color] hover:bg-ink hover:text-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">{t("contact")}</AnchorLink>
+          <AnchorLink href="/#contact" className="inline-flex min-h-[48px] items-center rounded-full border border-ink px-5 py-1.5 text-[13px] font-bold text-ink transition-[background-color,color] hover:bg-ink hover:text-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">{t("contact")}</AnchorLink>
         </div>
       </div>
     </ScrollHeader>
@@ -71,9 +74,9 @@ export async function SiteFooter() {
                 { href: "/#contact" as const, label: tHeader("contact"), n: "05" },
               ].map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="group inline-flex items-baseline gap-3 transition-colors duration-300 hover:text-ink dark:text-stone-400 dark:hover:text-white">
+                  <AnchorLink href={l.href} className="group inline-flex min-h-[48px] items-center gap-3 py-1 transition-colors duration-300 hover:text-ink dark:text-stone-400 dark:hover:text-white">
                     <span className="font-mono text-[11px] font-medium text-muted group-hover:text-clay">{l.n}</span> {l.label}
-                  </Link>
+                  </AnchorLink>
                 </li>
               ))}
             </ul>
@@ -91,7 +94,7 @@ export async function SiteFooter() {
                   ]
               ).map((l) => (
                 <li key={l.id}>
-                  <a href={l.url} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-1.5 transition-colors duration-300 hover:text-ink dark:text-stone-400 dark:hover:text-white">
+                  <a href={extUrl(l.url)} target="_blank" rel="noopener noreferrer" className="group inline-flex min-h-[48px] items-center gap-1.5 py-1 transition-colors duration-300 hover:text-ink dark:text-stone-400 dark:hover:text-white">
                     {l.platform} <ArrowUpRight className="h-3.5 w-3.5 text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-clay" aria-hidden />
                   </a>
                 </li>
@@ -101,10 +104,10 @@ export async function SiteFooter() {
 
           <div className="md:col-span-2">
             <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">Projet</p>
-            <Link href="/#contact" className="group mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-full bg-ink px-5 py-3 text-[13px] font-bold text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clay dark:bg-white dark:text-stone-950 dark:hover:bg-orange-100">
+            <AnchorLink href="/#contact" className="group mt-4 inline-flex min-h-[48px] items-center gap-2 rounded-full bg-ink px-5 py-3 text-[13px] font-bold text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clay dark:bg-white dark:text-stone-950 dark:hover:bg-orange-100">
               Démarrer <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
-            </Link>
-            <Link href="/work" className="mt-3 inline-flex items-center gap-1 text-[13px] font-bold text-ink/80 transition-colors hover:text-ink dark:text-white/80 dark:hover:text-white">
+            </AnchorLink>
+            <Link href="/work" className="mt-3 inline-flex min-h-[48px] items-center gap-1 text-[13px] font-bold text-ink/80 transition-colors hover:text-ink dark:text-white/80 dark:hover:text-white">
               {tFooter("allProjects")} <ArrowRight className="h-3 w-3" aria-hidden />
             </Link>
           </div>
@@ -118,7 +121,7 @@ export async function SiteFooter() {
 
         <div className="mt-8 flex flex-col gap-3 border-t border-border pt-6 dark:border-white/10 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[11px] tracking-wide text-muted">{tFooter("rights", { year: new Date().getFullYear() })}</p>
-          <AnchorLink href="#hero" className="inline-flex w-fit items-center gap-2 rounded-full border border-border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.08em] text-secondary transition-colors duration-300 hover:border-clay hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clay dark:border-white/10 dark:text-stone-400 dark:hover:border-clay dark:hover:text-white">
+          <AnchorLink href="#hero" className="inline-flex w-fit min-h-[48px] items-center gap-2 rounded-full border border-border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.08em] text-secondary transition-colors duration-300 hover:border-clay hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clay dark:border-white/10 dark:text-stone-400 dark:hover:border-clay dark:hover:text-white">
             Back to top <ArrowUp className="h-3.5 w-3.5" aria-hidden />
           </AnchorLink>
         </div>

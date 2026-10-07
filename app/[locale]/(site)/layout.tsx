@@ -5,7 +5,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <SiteHeader />
-      <div id="main" className="flex-1 pt-[72px] pb-24 lg:pb-0">{children}</div>
+      <main id="main" className="flex-1 pt-[72px] pb-24 lg:pb-0">{children}</main>
       <SiteFooter />
       <MobileDock />
     </>

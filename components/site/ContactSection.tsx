@@ -42,7 +42,7 @@ export function ContactSection({ profile }: { profile: { contactEmail?: string |
           </p>
 
           <div className="mt-6 flex items-center gap-4">
-            <Image src="/img/avatar.png" alt="Romaric GBENOU" width={64} height={64} className="h-16 w-16 rounded-2xl border border-border object-cover dark:border-white/10" />
+            <Image src="/img/avatar.webp" alt="Romaric GBENOU" width={64} height={64} className="h-16 w-16 rounded-2xl border border-border object-cover dark:border-white/10" />
             <div>
               <p className="text-sm font-bold">{t("name")}</p>
               <p className="text-xs text-secondary dark:text-stone-400">{t("role")}</p>

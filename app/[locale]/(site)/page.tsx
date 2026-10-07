@@ -8,6 +8,7 @@ import { GreetingRotator } from "@/components/site/GreetingRotator";
 import { MethodeIllustration } from "@/components/site/BentoIllustrations";
 import { BlobBackdrop } from "@/components/site/BlobBackdrop";
 import { Button, SectionHead } from "@/components/site/Section";
+import { extUrl } from "@/components/site/SiteShell";
 import { Words } from "@/components/site/Progressive";
 import { AnchorLink } from "@/components/site/AnchorLink";
 import { Reveal, Stagger } from "@/components/site/Reveal";
@@ -27,10 +28,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: {
       absolute: isEn
-        ? "Romaric GBENOU — Web Developer in Cotonou | React, Next.js, Laravel"
-        : "Romaric GBENOU — Développeur Web à Cotonou | React, Next.js, Laravel",
+        ? "Romaric GBENOU — Web Developer in Cotonou"
+        : "Romaric GBENOU — Développeur Web à Cotonou",
     },
-    description: t("hero.subtitle"),
+    description: t("seo.home"),
     alternates: { canonical: isEn ? "/en" : "/", languages: { fr: "/", en: "/en" } },
   };
 }
@@ -204,10 +205,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </div>
             </div>
             <div className="col-span-2 bg-surface/60 backdrop-blur-xl backdrop-saturate-150 border border-white/40 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[160px] relative overflow-hidden shadow-sm supports-[backdrop-filter]:bg-surface/50">
-              <div className="absolute inset-0 -z-10 overflow-hidden rounded-2xl">
-                <Image src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop" alt="" fill className="object-cover opacity-20 blur-[18px] scale-110" sizes="600px" />
-                <div className="absolute inset-0 bg-gradient-to-br from-surface/30 via-transparent to-accentMuted" />
-              </div>
+              <div aria-hidden className="absolute inset-0 overflow-hidden rounded-2xl bg-gradient-to-br from-accentMuted via-transparent to-surfaceSunken" />
               <div className="relative flex items-center gap-3">
                 <span className="flex items-center gap-1.5 rounded-full bg-surface border border-border px-3 py-1.5 shadow-sm">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -243,7 +241,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               {profile?.avatarUrl ? (
                 <Image src={profile.avatarUrl} alt={profile.name ?? "Portrait"} fill className="object-cover object-top" sizes="(max-width:768px) 100vw, 420px" quality={90} />
               ) : (
-                <Image src="/img/portrait.png" alt="Portrait — Romaric GBENOU" fill className="object-cover object-top" sizes="(max-width:768px) 100vw, 420px" quality={90} />
+                <Image src="/img/portrait.webp" alt="Portrait — Romaric GBENOU" fill className="object-cover object-top" sizes="(max-width:768px) 100vw, 420px" quality={90} />
               )}
             </figure>
           </div>
@@ -432,7 +430,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 jobTitle: profile?.headline || "Product Builder",
                 url: siteUrl,
                 address: { "@type": "PostalAddress", addressLocality: profile?.location || "Cotonou", addressCountry: "BJ" },
-                sameAs: (profile?.socialLinks || []).map((s: { url: string }) => s.url).filter(Boolean),
+                sameAs: (profile?.socialLinks || []).map((s: { url: string }) => extUrl(s.url)).filter(Boolean),
               },
               {
                 "@type": "WebSite",
@@ -446,7 +444,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 url: siteUrl,
                 address: { "@type": "PostalAddress", addressLocality: profile?.location || "Cotonou", addressCountry: "BJ" },
                 knowsAbout: ["React", "Next.js", "Laravel", "PostgreSQL", "Node.js"],
-                sameAs: (profile?.socialLinks || []).map((s: { url: string }) => s.url).filter(Boolean),
+                sameAs: (profile?.socialLinks || []).map((s: { url: string }) => extUrl(s.url)).filter(Boolean),
               },
             ],
           }),

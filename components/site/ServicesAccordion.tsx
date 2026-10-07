@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { AnchorLink } from "./AnchorLink";
 
 type ServiceItem = { id: string; title: string; description?: string | null };
@@ -48,7 +48,7 @@ export function ServicesAccordion({ services, locale = "fr" }: { services: Servi
                 {i + 1}. {s.title}
               </span>
               <span
-                className={`shrink-0 w-8 h-8 rounded-full border border-border grid place-items-center text-lg font-light transition-transform duration-300 ${isOpen ? "rotate-45 bg-ink text-white border-ink" : "text-muted bg-surface group-hover:border-accent/30"}`}
+                className={`shrink-0 w-11 h-11 rounded-full border border-border grid place-items-center text-lg font-light transition-transform duration-300 ${isOpen ? "rotate-45 bg-ink text-white border-ink" : "text-muted bg-surface group-hover:border-accent/30"}`}
                 aria-hidden
               >
                 +

@@ -26,7 +26,7 @@ export function MobileDock() {
         {PRIMARY.map((item) => {
           const Icon = item.icon;
           return (
-            <AnchorLink key={item.href} href={item.href} ariaLabel={item.label} className="flex h-11 w-11 items-center justify-center rounded-full text-white/70 hover:bg-white/10 hover:text-white transition">
+            <AnchorLink key={item.href} href={item.href} ariaLabel={item.label} className="flex h-12 w-12 items-center justify-center rounded-full text-white/70 hover:bg-white/10 hover:text-white transition">
               <Icon className="h-4 w-4" />
             </AnchorLink>
           );
@@ -35,7 +35,7 @@ export function MobileDock() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? "Fermer" : "Plus"}
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black transition"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black transition"
         >
           {open ? <X className="h-4 w-4" /> : <MoreHorizontal className="h-4 w-4" />}
         </button>
