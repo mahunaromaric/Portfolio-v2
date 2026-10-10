@@ -20,7 +20,7 @@ export function Toaster() {
     return () => window.removeEventListener("admin-toast", onToast);
   }, []);
   return (
-    <div aria-live="polite" className="pointer-events-none fixed bottom-6 right-6 z-[100] flex w-[min(360px,calc(100vw-48px))] flex-col gap-2">
+    <div aria-live="polite" className="pointer-events-none fixed bottom-28 right-4 z-[100] flex w-[min(360px,calc(100vw-32px))] flex-col gap-2 sm:right-6 lg:bottom-6">
       {toasts.map((t) => (
         <div
           key={t.id}

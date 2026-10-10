@@ -27,15 +27,39 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "work" });
   const projects = await getPublishedProjects();
-  const enriched = await Promise.all(projects.map(async (p) => {
-    const mediaLinks = await db.orm.public.ProjectMedia.where((m) => m.projectId.eq(p.id)).orderBy((m) => m.displayOrder.asc()).all();
-    const coverLink = mediaLinks.find((m) => m.isCover) ?? mediaLinks[0];
-    const cover = coverLink ? await db.orm.public.Media.where((m) => m.id.eq(coverLink.mediaId)).first() : null;
-    const techLinks = await db.orm.public.ProjectTechnology.where((t) => t.projectId.eq(p.id)).orderBy((t) => t.displayOrder.asc()).limit(3).all();
-    const techs = (await Promise.all(techLinks.map((l) => db.orm.public.Technology.where((t) => t.id.eq(l.technologyId)).first()))).filter((t): t is NonNullable<typeof t> => t !== null);
+  const projectIds = projects.map((p) => p.id);
+  const [allMediaLinks, allTechLinks] = await Promise.all([
+    projectIds.length
+      ? db.orm.public.ProjectMedia.where((m) => m.projectId.in(projectIds)).orderBy((m) => m.displayOrder.asc()).all()
+      : [],
+    projectIds.length
+      ? db.orm.public.ProjectTechnology.where((t) => t.projectId.in(projectIds)).orderBy((t) => t.displayOrder.asc()).all()
+      : [],
+  ]);
+  const mediaById = new Map<string, { url: string; alt: string | null }>();
+  const neededMediaIds = [...new Set(allMediaLinks.map((l) => l.mediaId))];
+  if (neededMediaIds.length > 0) {
+    const medias = await db.orm.public.Media.where((m) => m.id.in(neededMediaIds)).all();
+    for (const med of medias) mediaById.set(med.id, { url: med.url, alt: med.alt });
+  }
+  const techById = new Map<string, { id: string; name: string }>();
+  const neededTechIds = [...new Set(allTechLinks.map((l) => l.technologyId))];
+  if (neededTechIds.length > 0) {
+    const techs = await db.orm.public.Technology.where((t) => t.id.in(neededTechIds)).all();
+    for (const t of techs) techById.set(t.id, t);
+  }
+  const enriched = projects.map((p) => {
+    const links = allMediaLinks.filter((m) => m.projectId === p.id);
+    const coverLink = links.find((m) => m.isCover) ?? links[0];
+    const cover = coverLink ? (mediaById.get(coverLink.mediaId) ?? null) : null;
+    const techs = allTechLinks
+      .filter((t) => t.projectId === p.id)
+      .slice(0, 3)
+      .map((l) => techById.get(l.technologyId))
+      .filter((t): t is NonNullable<typeof t> => t !== null && t !== undefined);
     const translated = locale === "en" ? PROJECT_EN[p.slug] : undefined;
     return { p: locale === "en" ? { ...p, title: p.titleEn || translated?.title || p.title, shortDescription: p.shortDescriptionEn || translated?.shortDescription || p.shortDescription, role: p.roleEn || p.role } : p, cover, techs };
-  }));
+  });
   return (
     <div className={`${W} py-10`}>
       <div className="mb-12">

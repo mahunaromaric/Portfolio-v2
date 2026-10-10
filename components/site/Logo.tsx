@@ -15,7 +15,7 @@ export function Logo() {
   return (
     <span className="inline-flex items-center gap-2.5">
       <SillonMark className="h-7 w-7" />
-      <span className="text-[15px] font-extrabold tracking-[-0.04em] text-ink">Romaric GBENOU</span>
+      <span className="hidden text-[15px] font-extrabold tracking-[-0.04em] text-ink min-[400px]:inline">Romaric GBENOU</span>
     </span>
   );
 }

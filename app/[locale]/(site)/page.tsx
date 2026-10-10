@@ -83,21 +83,39 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   ) as typeof phasesRaw;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mahuna.is-a.dev";
   const projects = featured.slice(0, 6);
-  const enriched = await Promise.all(
-    projects.map(async (p) => {
-      const mediaLinks = await db.orm.public.ProjectMedia.where((m) => m.projectId.eq(p.id)).orderBy((m) => m.displayOrder.asc()).all();
-      const coverLink = mediaLinks.find((m) => m.isCover) ?? mediaLinks[0];
-      const cover = coverLink ? await db.orm.public.Media.where((m) => m.id.eq(coverLink.mediaId)).first() : null;
-      const techLinks = await db.orm.public.ProjectTechnology.where((t) => t.projectId.eq(p.id)).orderBy((t) => t.displayOrder.asc()).limit(3).all();
-      const techNames = (
-        await Promise.all(techLinks.map((l) => db.orm.public.Technology.where((t) => t.id.eq(l.technologyId)).first()))
-      )
-        .filter((t): t is NonNullable<typeof t> => t !== null)
-        .map((t) => t.name);
-      const translated = isEn ? PROJECT_EN[p.slug] : undefined;
-      return { p: isEn ? { ...p, title: p.titleEn || translated?.title || p.title, shortDescription: p.shortDescriptionEn || translated?.shortDescription || p.shortDescription, role: p.roleEn || p.role } : p, cover, techNames };
-    }),
-  );
+  const projectIds = projects.map((p) => p.id);
+  const [allMediaLinks, allTechLinks] = await Promise.all([
+    projectIds.length
+      ? db.orm.public.ProjectMedia.where((m) => m.projectId.in(projectIds)).orderBy((m) => m.displayOrder.asc()).all()
+      : [],
+    projectIds.length
+      ? db.orm.public.ProjectTechnology.where((t) => t.projectId.in(projectIds)).orderBy((t) => t.displayOrder.asc()).all()
+      : [],
+  ]);
+  const mediaById = new Map<string, { url: string; alt: string | null }>();
+  const neededMediaIds = [...new Set(allMediaLinks.map((l) => l.mediaId))];
+  if (neededMediaIds.length > 0) {
+    const medias = await db.orm.public.Media.where((m) => m.id.in(neededMediaIds)).all();
+    for (const med of medias) mediaById.set(med.id, { url: med.url, alt: med.alt });
+  }
+  const techById = new Map<string, string>();
+  const neededTechIds = [...new Set(allTechLinks.map((l) => l.technologyId))];
+  if (neededTechIds.length > 0) {
+    const techs = await db.orm.public.Technology.where((t) => t.id.in(neededTechIds)).all();
+    for (const t of techs) techById.set(t.id, t.name);
+  }
+  const enriched = projects.map((p) => {
+    const links = allMediaLinks.filter((m) => m.projectId === p.id);
+    const coverLink = links.find((m) => m.isCover) ?? links[0];
+    const cover = coverLink ? (mediaById.get(coverLink.mediaId) ?? null) : null;
+    const techNames = allTechLinks
+      .filter((t) => t.projectId === p.id)
+      .slice(0, 3)
+      .map((l) => techById.get(l.technologyId))
+      .filter((n): n is string => n !== undefined);
+    const translated = isEn ? PROJECT_EN[p.slug] : undefined;
+    return { p: isEn ? { ...p, title: p.titleEn || translated?.title || p.title, shortDescription: p.shortDescriptionEn || translated?.shortDescription || p.shortDescription, role: p.roleEn || p.role } : p, cover, techNames };
+  });
 
   const fmtDay = (iso: string) =>
     new Date(iso).toLocaleDateString(locale, { month: "short", year: "numeric" });
@@ -369,7 +387,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <h2 className="mt-5 max-w-[760px] text-[clamp(30px,4.8vw,48px)] font-extrabold leading-[1.02] tracking-[-0.04em] text-ink text-balance"><Words text={t("collaboration.title")} /></h2>
               <p className="mt-4 max-w-sm text-[15px] leading-[1.7] text-secondary">{t("collaboration.intro")}</p>
             </div>
-            <AnchorLink href="/#contact" className="group inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-full bg-brandDark px-6 py-3.5 text-[13px] font-bold text-white shadow-[0_8px_24px_rgba(28,25,23,0.18)] transition-[transform,box-shadow,background-color] duration-300 hover:-translate-y-0.5 hover:bg-black hover:shadow-[0_12px_32px_rgba(28,25,23,0.22)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">
+            <AnchorLink href="/#contact" className="group inline-flex min-h-[48px] shrink-0 items-center gap-2 rounded-full bg-brandDark px-6 py-3.5 text-[13px] font-bold text-white shadow-[0_8px_24px_rgba(28,25,23,0.18)] transition-[transform,box-shadow,background-color] duration-300 hover:-translate-y-0.5 hover:bg-black hover:shadow-[0_12px_32px_rgba(28,25,23,0.22)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">
               {t("collaboration.cta")} <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
             </AnchorLink>
           </div>

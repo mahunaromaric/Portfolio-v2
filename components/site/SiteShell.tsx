@@ -18,10 +18,10 @@ export async function SiteHeader() {
   return (
     <ScrollHeader>
       <div className={`${W} flex h-[72px] items-center justify-between`}>
-        <Link href="/" aria-label="Romaric GBENOU — accueil" className="inline-flex min-h-[48px] items-center">
+        <AnchorLink href="/#hero" ariaLabel="Romaric GBENOU — accueil" className="inline-flex min-h-[48px] items-center">
           <Logo />
-        </Link>
-        <div className="flex items-center gap-3">
+        </AnchorLink>
+        <div className="flex items-center gap-2 sm:gap-3">
           <nav className="hidden lg:flex items-center gap-4 text-[13px] font-bold tracking-[0.04em] text-secondary">
             <AnchorLink href="/#hero" className="inline-flex min-h-[48px] items-center px-1 hover:text-ink transition-colors">{t("home")}</AnchorLink>
             <AnchorLink href="/#about" className="inline-flex min-h-[48px] items-center px-1 hover:text-ink transition-colors">{t("about")}</AnchorLink>

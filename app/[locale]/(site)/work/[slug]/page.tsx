@@ -44,7 +44,11 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ loc
       if (typeof c.mediaId === "string") ids.add(c.mediaId);
       if (Array.isArray(c.mediaIds)) for (const id of c.mediaIds) if (typeof id === "string") ids.add(id);
     }
-    for (const id of ids) if (!mediaById.has(id)) { const m = await db.orm.public.Media.where((x) => x.id.eq(id)).first(); if (m) mediaById.set(m.id, { url: m.url, alt: m.alt }); }
+    const missing = [...ids].filter((id) => !mediaById.has(id));
+    if (missing.length > 0) {
+      const more = await db.orm.public.Media.where((x) => x.id.in(missing)).all();
+      for (const m of more) mediaById.set(m.id, { url: m.url, alt: m.alt });
+    }
   }
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mahuna.is-a.dev";
   const breadcrumbLd = {
