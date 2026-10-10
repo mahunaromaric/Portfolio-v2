@@ -44,6 +44,7 @@ export async function generateMetadata({
       images: [`${siteUrl}/opengraph-image`],
     },
     robots: { index: true, follow: true },
+    verification: { google: "GJF8ddlWHFJinWyCaOtrDY8UQ9SXI-okrCCKv17IPd8" },
   };
 };
 
