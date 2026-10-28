@@ -100,7 +100,12 @@
     "thanks": "A project in mind?",
     "build": "Write to me — reply within 24h",
     "rights": "Product Builder · Developer — © {year}",
-    "allProjects": "All projects"
+    "allProjects": "All projects",
+    "nav": "Navigation",
+    "contact": "Contact",
+    "legal": "Legal notice",
+    "start": "Start a project",
+    "backToTop": "Back to top"
   },
   "work": {
     "label": "// work",
@@ -121,5 +126,22 @@
     "title": "Project not found.",
     "description": "This project does not exist or is no longer published.",
     "back": "Back to projects"
+  },
+  "legal": {
+    "eyebrow": "Legal information",
+    "title": "Legal notice",
+    "updated": "Last updated: October 2026",
+    "intro": "This site is a personal portfolio. The information below identifies its publisher, hosting provider and the rules that apply to its content.",
+    "publisherTitle": "Publisher",
+    "publisherBody": "Romaric GBENOU — Product Builder and independent developer, based in Cotonou, Benin. For any question about this site:",
+    "hostTitle": "Hosting",
+    "hostBody": "This site is hosted by Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, United States — vercel.com.",
+    "ipTitle": "Intellectual property",
+    "ipBody": "The text, visuals, interfaces, source code and Sillon visual identity on this site belong to Romaric GBENOU unless stated otherwise. Any reproduction or reuse without written permission is prohibited. Third-party brands, logos and projects mentioned remain the property of their respective owners.",
+    "dataTitle": "Personal data",
+    "dataBody": "Information sent through the contact form (name, email address, message) is used only to reply to your request. It is never sold or used for advertising. You may request access to or deletion of it at any time by email. No analytics tool or advertising tracker is used.",
+    "cookiesTitle": "Cookies and local storage",
+    "cookiesBody": "This site only stores your theme preference in the browser's local storage. A strictly necessary session cookie is created when signing in to the administration area. The form is protected by Cloudflare Turnstile, which may set technical cookies related to bot verification.",
+    "back": "Back to home"
   }
 }

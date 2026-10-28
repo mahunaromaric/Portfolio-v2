@@ -100,7 +100,12 @@
     "thanks": "Un projet en tête ?",
     "build": "Écrivez-moi — réponse sous 24h",
     "rights": "Product Builder · Développeur — © {year}",
-    "allProjects": "Tous les projets"
+    "allProjects": "Tous les projets",
+    "nav": "Navigation",
+    "contact": "Contact",
+    "legal": "Mentions légales",
+    "start": "Démarrer un projet",
+    "backToTop": "Retour en haut"
   },
   "work": {
     "label": "// réalisations",
@@ -121,5 +126,22 @@
     "title": "Projet introuvable.",
     "description": "Ce projet n'existe pas ou n'est plus publié.",
     "back": "Retour aux projets"
+  },
+  "legal": {
+    "eyebrow": "Informations légales",
+    "title": "Mentions légales",
+    "updated": "Dernière mise à jour : octobre 2026",
+    "intro": "Ce site est un portfolio personnel. Les informations ci-dessous précisent son éditeur, son hébergement et les règles applicables à son contenu.",
+    "publisherTitle": "Éditeur du site",
+    "publisherBody": "Romaric GBENOU — Product Builder et développeur indépendant, établi à Cotonou, Bénin. Pour toute question relative au site :",
+    "hostTitle": "Hébergement",
+    "hostBody": "Le site est hébergé par Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis — vercel.com.",
+    "ipTitle": "Propriété intellectuelle",
+    "ipBody": "Les textes, visuels, interfaces, code source et l'identité graphique Sillon présents sur ce site appartiennent à Romaric GBENOU, sauf mention contraire. Toute reproduction ou réutilisation sans autorisation écrite est interdite. Les marques, logos et projets tiers cités restent la propriété de leurs titulaires respectifs.",
+    "dataTitle": "Données personnelles",
+    "dataBody": "Les informations envoyées via le formulaire de contact (nom, adresse e-mail, message) servent uniquement à répondre à votre demande. Elles ne sont ni vendues ni utilisées à des fins publicitaires. Vous pouvez demander leur consultation ou leur suppression à tout moment par e-mail. Aucun outil de mesure d'audience ni traceur publicitaire n'est utilisé.",
+    "cookiesTitle": "Cookies et stockage local",
+    "cookiesBody": "Le site conserve uniquement votre préférence de thème dans le stockage local du navigateur. Un cookie de session strictement nécessaire est créé lors de la connexion à l'espace d'administration. Le formulaire est protégé par Cloudflare Turnstile, qui peut déposer des cookies techniques liés à la vérification anti-robot.",
+    "back": "Retour à l'accueil"
   }
 }
