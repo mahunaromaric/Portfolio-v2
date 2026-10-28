@@ -81,6 +81,7 @@
     "role": "Product Builder · Developer",
     "direct": "Contact me directly",
     "choose": "Choose the channel that suits you:",
+    "intro": "A website, application, or platform to build? Tell me about your project: the context, what you want to achieve, and your timeline. I will get back to you with a clear first response, without jargon, and concrete ways to move forward.",
     "email": "Email",
     "whatsapp": "WhatsApp",
     "form": "Form",
@@ -94,7 +95,8 @@
     "yourMessage": "Your message (10 chars min) *",
     "send": "Send",
     "sending": "Sending…",
-    "sent": "Message sent. Thank you!"
+    "sent": "Message sent. Thank you!",
+    "optional": "optional"
   },
   "footer": {
     "thanks": "A project in mind?",

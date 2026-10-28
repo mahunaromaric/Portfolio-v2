@@ -81,6 +81,7 @@
     "role": "Product Builder · Développeur",
     "direct": "Me contacter directement",
     "choose": "Choisissez le canal qui vous convient :",
+    "intro": "Un site, une application ou une plateforme à construire ? Racontez-moi votre projet : le contexte, ce que vous voulez accomplir et vos délais. Je reviens vers vous avec un premier retour clair, sans jargon, et des pistes concrètes pour avancer.",
     "email": "Email",
     "whatsapp": "WhatsApp",
     "form": "Formulaire",
@@ -94,7 +95,8 @@
     "yourMessage": "Votre message (10 caractères min) *",
     "send": "Envoyer",
     "sending": "Envoi…",
-    "sent": "Message envoyé. Merci !"
+    "sent": "Message envoyé. Merci !",
+    "optional": "optionnel"
   },
   "footer": {
     "thanks": "Un projet en tête ?",

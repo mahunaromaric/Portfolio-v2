@@ -1,90 +1,125 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { ArrowLeft, ArrowRight, Mail, Phone } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 
 export function ContactSection({ profile }: { profile: { contactEmail?: string | null } | null }) {
   const t = useTranslations("contact");
   const locale = useLocale();
   const isEn = locale === "en";
-  const [view, setView] = useState<"intro" | "form">("intro");
+  const reduce = useReducedMotion();
+  const [view, setView] = useState<"presentation" | "form">("presentation");
+  const openBtnRef = useRef<HTMLButtonElement>(null);
   const email = profile?.contactEmail ?? "romamahuna@gmail.com";
 
+  const channels = [
+    { label: "Email", href: `mailto:${email}`, icon: <Mail aria-hidden /> },
+    { label: "WhatsApp", href: "https://wa.me/2290161642237", icon: <Phone aria-hidden /> },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/romaric-gbenou", icon: <ArrowRight className="h-3 w-3" aria-hidden /> },
+    { label: "GitHub", href: "https://github.com/mahunaromaric", icon: <ArrowRight className="h-3 w-3" aria-hidden /> },
+  ] as const;
+
+  useEffect(() => {
+    if (view === "form") {
+      const el = document.getElementById("cf-name");
+      el?.focus();
+    } else {
+      openBtnRef.current?.focus();
+    }
+  }, [view]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && view === "form") setView("presentation");
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [view]);
+
   return (
-    <section id="contact" className="py-12 sm:py-16 lg:py-24 overflow-hidden">
-      <div className="mx-auto w-full max-w-[700px] px-4 sm:px-6 lg:px-8 text-center">
+    <section id="contact" className="pt-12 pb-6 sm:pt-16 sm:pb-8 lg:pt-20 lg:pb-10 overflow-hidden">
+      <div className="mx-auto w-full max-w-[700px] px-4 sm:px-6 lg:px-8">
+        <div className="relative min-h-[520px]">
+          <AnimatePresence>
+            {view === "presentation" && (
+              <motion.div
+                key="presentation"
+                initial={{ opacity: 0, y: reduce ? 0 : -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: reduce ? 0 : 8 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+              >
+                <div className="text-center">
+                  <div className="mb-8 flex items-center justify-center gap-2">
+                    <span className="font-mono text-[11px] font-medium tabular-nums text-secondary">07</span>
+                    <span className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">{ "// Contact" }</span>
+                    <span aria-hidden className="h-px flex-1 bg-border" />
+                  </div>
 
-        {/* En-tête sobre */}
-        <div className="mb-10 flex items-center justify-center gap-3">
-          <span className="font-mono text-[11px] font-medium tabular-nums text-muted">07</span>
-          <span className="font-mono text-[13px] uppercase tracking-[0.08em] text-accent">{ "// Contact" }</span>
-          <span aria-hidden className="h-px flex-1 bg-border" />
+                  <h1 className="mb-6 max-w-none text-[clamp(32px,8vw,56px)] font-extrabold leading-[1.02] tracking-[-0.03em] text-ink text-balance">
+                    {isEn ? "Let's talk about your project." : "Parlons de votre idée."}
+                  </h1>
+
+                  <p className="mx-auto mb-10 max-w-[520px] text-[16px] leading-[1.75] text-secondary dark:text-stone-400 sm:text-[17px]">
+                    {t("intro")}
+                  </p>
+
+                  <button
+                    ref={openBtnRef}
+                    onClick={() => setView("form")}
+                    className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-[13px] font-bold text-white transition-[transform,background-color] duration-200 hover:bg-accentHover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  >
+                    {isEn ? "Write a message" : "Écrire un message"} <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                  </button>
+
+                  <div className="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-4 text-secondary">
+                    {channels.map((c) => (
+                      <a
+                        key={c.label}
+                        href={c.href}
+                        target={c.href.startsWith("mailto") ? undefined : "_blank"}
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-[12px] font-medium text-secondary hover:text-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                      >
+                        {c.icon}
+                        <span>{c.label}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {view === "form" && (
+              <motion.div
+                key="form"
+                initial={{ opacity: 0, y: reduce ? 0 : -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: reduce ? 0 : 8 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+              >
+                <div className="max-w-[640px] mx-auto rounded-2xl border border-border bg-surface p-6 sm:p-8 shadow-sm dark:border-white/10">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
+                    <button
+                      onClick={() => setView("presentation")}
+                      className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-secondary transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    >
+                      <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> {t("back")}
+                    </button>
+                    <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-secondary">
+                      {t("formTitle")}
+                    </span>
+                  </div>
+                  <ContactForm />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-
-        <h2 className="mb-4 max-w-none text-[clamp(28px,6vw,42px)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink text-balance">
-          {isEn ? "Let's talk about your project" : "Parlons de votre idée"}
-        </h2>
-
-        <p className="mb-8 max-w-none text-[14px] leading-[1.7] text-secondary dark:text-stone-400">
-          {t("choose")} {t("response")} · Cotonou (GMT+1).
-        </p>
-
-        {/* Contact direct */}
-        <a
-          href={`mailto:${email}`}
-          className="mb-10 inline-flex items-center justify-center gap-2 border border-border rounded-full px-6 py-3 font-mono text-[11px] uppercase tracking-[0.08em] text-secondary transition-colors duration-300 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:hover:border-accent"
-        >
-          {t("name")} — {t("direct")}
-          <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-        </a>
-
-        <p className="mb-10 max-w-none text-[14px] leading-[1.7] text-secondary dark:text-stone-400">
-          {isEn ? "One message is enough to start." : "Un message suffit pour commencer."}
-        </p>
-
-        {/* 3 étapes */}
-        <ol className="mb-12 space-y-5 text-left sm:text-center">
-          {[
-            { n: "01", label: isEn ? "Context + goal in 3 lines" : "Contexte + objectif en 3 lignes" },
-            { n: "02", label: t("response") },
-            { n: "03", label: isEn ? "Clear quote, no jargon." : "Devis clair, sans jargon." },
-          ].map((s) => (
-            <li key={s.n} className="flex items-start gap-3">
-              <span className="shrink-0 font-mono text-[11px] font-medium text-accent">{s.n}</span>
-              <span className="text-[13px] text-secondary dark:text-stone-400">{s.label}</span>
-            </li>
-          ))}
-        </ol>
-
-        {/* Bouton qui révèle le formulaire */}
-        <button
-          onClick={() => setView("form")}
-          className="inline-flex min-h-[48px] items-center justify-center gap-2 border border-border rounded-full px-6 py-3 font-bold text-[13px] text-ink transition-colors duration-300 hover:bg-ink hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:text-stone-300 dark:hover:bg-stone-100 dark:hover:text-stone-950"
-        >
-          {t("formTitle")}
-          <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-        </button>
-
       </div>
-
-      {/* Formulaire révélé au clic (pas de card, même sobriété) */}
-      {view === "form" && (
-        <div className="mx-auto w-full max-w-[560px] px-4 sm:px-6 lg:px-8 mt-12">
-          <div className="flex items-center justify-between mb-6">
-            <button
-              onClick={() => setView("intro")}
-              className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-secondary transition-colors duration-300 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-stone-400 dark:hover:text-accent"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> {t("back")}
-            </button>
-            <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">{t("formTitle")}</p>
-            <span className="w-16" />
-          </div>
-          <ContactForm />
-        </div>
-      )}
     </section>
   );
 }
