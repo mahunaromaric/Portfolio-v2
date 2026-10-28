@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowLeft, ArrowRight, Mail, Phone } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
+import { HandshakeIllustration } from "./HandshakeIllustration";
 
 export function ContactSection({ profile }: { profile: { contactEmail?: string | null } | null }) {
   const t = useTranslations("contact");
@@ -119,6 +120,9 @@ export function ContactSection({ profile }: { profile: { contactEmail?: string |
             )}
           </AnimatePresence>
         </div>
+      </div>
+      <div className="my-8 sm:my-12 flex justify-center" aria-hidden="true">
+        <HandshakeIllustration />
       </div>
     </section>
   );
