@@ -71,9 +71,9 @@ function CaseBlockView({ block, mediaById }: { block: CaseBlock; mediaById: Map<
         const m = mediaById.get(c.mediaId);
         if (!m) return <p className="text-sm text-muted">Image introuvable.</p>;
         return (
-          <figure className="overflow-hidden rounded-2xl border border-border bg-surface">
+          <figure className="overflow-hidden rounded-2xl border border-border bg-surfaceSunken">
             <div className="relative aspect-[16/10]">
-              <Image src={m.url} alt={m.alt || block.title || ""} fill className="object-cover" sizes="100vw" />
+              <Image src={m.url} alt={m.alt || block.title || ""} fill className="object-contain p-4 sm:p-6" sizes="100vw" />
             </div>
             {typeof c.caption === "string" && c.caption && <figcaption className="px-4 py-3 text-[12px] text-secondary">{c.caption}</figcaption>}
           </figure>
@@ -85,8 +85,8 @@ function CaseBlockView({ block, mediaById }: { block: CaseBlock; mediaById: Map<
             const m = typeof id === "string" ? mediaById.get(id) : null;
             if (!m) return null;
             return (
-              <div key={String(id)} className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border bg-surface">
-                <Image src={m.url} alt={m.alt || ""} fill className="object-cover" sizes="50vw" />
+              <div key={String(id)} className="relative aspect-[16/10] overflow-hidden rounded-xl border border-border bg-surfaceSunken">
+                <Image src={m.url} alt={m.alt || ""} fill className="object-contain p-3" sizes="50vw" />
               </div>
             );
           })}

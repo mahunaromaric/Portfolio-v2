@@ -291,11 +291,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                           <Link href={`/work/${p.slug}`} aria-label={t("projects.viewProject", { title: p.title })} className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-surface text-ink transition-[background-color,border-color,color,transform] duration-300 hover:border-ink hover:bg-ink hover:text-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"><ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[1px] group-hover:-translate-y-[1px]" /></Link>
                         </div>
                       </div>
-                      <div className="relative min-h-[240px] overflow-hidden border-t border-border bg-surfaceSunken md:min-h-[240px] md:border-l md:border-t-0">
+                      <div className="relative aspect-[16/10] overflow-hidden border-t border-border bg-surfaceSunken md:border-l md:border-t-0">
                         {item.cover ? (
-                          <Image src={item.cover.url} alt={item.cover.alt || p.title} fill className="object-cover transition-transform duration-[900ms] ease-out motion-reduce:transition-none group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 50vw" />
+                          <Image src={item.cover.url} alt={item.cover.alt || p.title} fill className="object-contain p-3 sm:p-4" sizes="(max-width: 768px) 100vw, 50vw" />
                         ) : (
-                          <div className="flex h-full min-h-[240px] w-full items-center justify-center border border-dashed border-borderStrong bg-gradient-to-br from-surfaceSunken to-border text-xs text-muted">{t("projects.noImage")} — bientôt…</div>
+                          <div className="flex h-full w-full items-center justify-center border border-dashed border-borderStrong bg-surfaceSunken text-xs text-muted">{t("projects.noImage")} — bientôt…</div>
                         )}
                       </div>
                     </div>
@@ -313,11 +313,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 .filter((_, i) => i % 3 !== 0)
                 .map(({ p, techNames, cover }) => (
                   <article key={p.id} className="group flex flex-col overflow-hidden rounded-[24px] border border-border bg-surface shadow-sm transition-[box-shadow,border-color] duration-500 hover:border-accent/40 hover:shadow-[0_20px_60px_-20px_rgba(30,58,138,0.25)]">
-                    <div className="relative h-52 overflow-hidden bg-surfaceSunken">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-surfaceSunken">
                       {cover ? (
-                        <Image src={cover.url} alt={cover.alt || p.title} fill className="object-cover transition-transform duration-[900ms] ease-out motion-reduce:transition-none group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 50vw" />
+                        <Image src={cover.url} alt={cover.alt || p.title} fill className="object-contain p-3 sm:p-4" sizes="(max-width: 768px) 100vw, 50vw" />
                       ) : (
-                        <div className="flex h-full w-full items-center justify-center border border-dashed border-borderStrong bg-gradient-to-br from-surfaceSunken to-border text-xs text-muted">{t("projects.noImage")} — bientôt…</div>
+                        <div className="flex h-full w-full items-center justify-center border border-dashed border-borderStrong bg-surfaceSunken text-xs text-muted">{t("projects.noImage")} — bientôt…</div>
                       )}
                     </div>
                     <div className="flex flex-1 flex-col justify-between space-y-3 p-6">

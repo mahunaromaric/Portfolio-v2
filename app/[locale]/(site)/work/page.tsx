@@ -75,8 +75,8 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
                 <div><div className="font-mono text-xs text-muted">{locale === "en" ? p.category.nameEn || p.category.name : p.category.name} {p.year?`· ${p.year}`:""}</div><h3 className="mt-1 text-lg font-bold text-ink group-hover:text-accent">{p.title}</h3><p className="mt-2 text-sm text-secondary line-clamp-3">{p.shortDescription}</p><div className="mt-3 flex flex-wrap gap-1.5">{techs.map(t=><span key={t.id} className="rounded-full border border-border bg-bg px-2 py-1 text-xs text-secondary">{t.name}</span>)}</div></div>
                 <div className="mt-4"><span className="group inline-flex items-center justify-center h-11 w-11 rounded-full border border-ink/10 bg-surface text-ink group-hover:border-ink group-hover:bg-ink group-hover:text-bg transition"><ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-[1px] group-hover:-translate-y-[1px]" /></span></div>
               </div>
-              <div className="relative bg-surfaceSunken min-h-[240px] md:min-h-[260px] overflow-hidden border-t md:border-t-0 md:border-l border-border">
-                {cover ? <Image src={cover.url} alt={cover.alt || p.title} fill className="object-cover group-hover:scale-[1.02] transition" sizes="(max-width: 768px) 100vw, 50vw" /> : <div className="w-full h-full bg-gradient-to-br from-surfaceSunken to-border flex items-center justify-center text-xs text-muted">{t("noImage")}</div>}
+              <div className="relative bg-surfaceSunken aspect-[16/10] overflow-hidden border-t md:border-t-0 md:border-l border-border">
+                {cover ? <Image src={cover.url} alt={cover.alt || p.title} fill className="object-contain p-3 sm:p-4" sizes="(max-width: 768px) 100vw, 50vw" /> : <div className="w-full h-full bg-surfaceSunken flex items-center justify-center text-xs text-muted">{t("noImage")}</div>}
               </div>
             </Link>
           ))}
@@ -84,8 +84,8 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {enriched.filter((_,i)=>i%3!==0).map(({p, cover, techs})=>(
               <Link key={p.id} href={`/work/${p.slug}`} className="group overflow-hidden rounded-2xl border border-border bg-surface shadow-sm hover:shadow-md transition flex flex-col">
-                <div className="relative h-48 bg-surfaceSunken overflow-hidden">
-                  {cover ? <Image src={cover.url} alt={cover.alt || p.title} fill className="object-cover group-hover:scale-[1.02] transition" sizes="50vw" /> : <div className="w-full h-full bg-gradient-to-br from-surfaceSunken to-border flex items-center justify-center text-xs text-muted">{t("noImage")}</div>}
+                <div className="relative aspect-[16/10] bg-surfaceSunken overflow-hidden">
+                  {cover ? <Image src={cover.url} alt={cover.alt || p.title} fill className="object-contain p-3 sm:p-4" sizes="50vw" /> : <div className="w-full h-full bg-surfaceSunken flex items-center justify-center text-xs text-muted">{t("noImage")}</div>}
                 </div>
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div><div className="font-mono text-xs text-muted">{locale === "en" ? p.category.nameEn || p.category.name : p.category.name}</div><h3 className="mt-1 font-bold text-ink group-hover:text-accent line-clamp-2">{p.title}</h3><p className="mt-1 text-xs text-secondary line-clamp-3">{p.shortDescription}</p></div>
