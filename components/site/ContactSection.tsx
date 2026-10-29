@@ -18,7 +18,7 @@ export function ContactSection({ profile }: { profile: { contactEmail?: string |
   const channels = [
     { label: "Email", href: `mailto:${email}`, icon: <Mail aria-hidden /> },
     { label: "WhatsApp", href: "https://wa.me/2290161642237", icon: <Phone aria-hidden /> },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/romaric-gbenou", icon: <ArrowRight className="h-3 w-3" aria-hidden /> },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/romaric-gbenou-174a853b5", icon: <ArrowRight className="h-3 w-3" aria-hidden /> },
     { label: "GitHub", href: "https://github.com/mahunaromaric", icon: <ArrowRight className="h-3 w-3" aria-hidden /> },
   ] as const;
 
@@ -40,9 +40,9 @@ export function ContactSection({ profile }: { profile: { contactEmail?: string |
   }, [view]);
 
   return (
-    <section id="contact" className="pt-12 pb-6 sm:pt-16 sm:pb-8 lg:pt-20 lg:pb-10 overflow-hidden">
+    <section id="contact" className="pt-12 pb-0 sm:pt-16 sm:pb-0 lg:pt-20 lg:pb-0 overflow-hidden">
       <div className="mx-auto w-full max-w-[700px] px-4 sm:px-6 lg:px-8">
-        <div className="relative min-h-[520px]">
+        <div className="relative min-h-[460px]">
           <AnimatePresence>
             {view === "presentation" && (
               <motion.div
@@ -88,6 +88,11 @@ export function ContactSection({ profile }: { profile: { contactEmail?: string |
                         <span>{c.label}</span>
                       </a>
                     ))}
+                  </div>
+
+                  <div aria-hidden="true" className="mt-10 flex flex-col items-center sm:mt-12">
+                    <span className="h-12 w-px bg-border sm:h-16" />
+                    <span className="mt-2 h-1 w-1 rounded-full bg-accent" />
                   </div>
                 </div>
               </motion.div>

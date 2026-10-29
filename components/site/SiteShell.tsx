@@ -11,7 +11,12 @@ import { ScrollHeader } from "./ScrollHeader";
 const W = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8";
 
 /** Normalise les URL sociales legacy sans schéma (sinon lien relatif cassé). */
-export const extUrl = (url: string) => (/^https?:\/\//i.test(url) ? url : `https://${url}`);
+export const extUrl = (url: string) => {
+  if (/^https?:\/\//i.test(url)) return url;
+  // Certaines données legacy stockent seulement "in/<slug>" pour LinkedIn.
+  if (/^\/?in\//i.test(url)) return `https://www.linkedin.com/${url.replace(/^\//, "")}`;
+  return `https://${url}`;
+};
 
 export async function SiteHeader() {
   const t = await getTranslations("header");
@@ -32,7 +37,7 @@ export async function SiteHeader() {
           </nav>
           <ThemeToggle />
           <LocaleSwitcher />
-          <AnchorLink href="/#contact" className="inline-flex min-h-[48px] items-center rounded-full border border-ink px-5 py-1.5 text-[13px] font-bold text-ink transition-[background-color,color] hover:bg-ink hover:text-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">{t("contact")}</AnchorLink>
+          <AnchorLink href="/#contact" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-ink px-4 py-2 text-[12px] font-bold text-ink transition-[background-color,color] hover:bg-ink hover:text-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">{t("contact")}</AnchorLink>
         </div>
       </div>
     </ScrollHeader>
@@ -89,7 +94,7 @@ export async function SiteFooter() {
   const cotonouTime = new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone: "Africa/Porto-Novo" }).format(now);
 
   return (
-    <footer className="relative overflow-hidden bg-surfaceSunken pt-14 text-secondary sm:pt-20 dark:bg-brandDark dark:text-stone-300">
+    <footer className="relative overflow-hidden bg-surfaceSunken pb-24 pt-14 text-secondary sm:pt-20 lg:pb-0 dark:bg-brandDark dark:text-stone-300">
       <div className={W}>
         <div className="relative z-10 rounded-3xl border border-border bg-surface p-6 shadow-[0_16px_40px_rgba(28,25,23,0.08)] sm:p-9 lg:p-12 dark:border-white/10 dark:shadow-none">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
@@ -128,8 +133,10 @@ export async function SiteFooter() {
                   { href: "/#about" as const, label: tHeader("about"), n: "01" },
                   { href: "/#projects" as const, label: tHeader("projects"), n: "02" },
                   { href: "/#experience" as const, label: tHeader("experience"), n: "03" },
-                  { href: "/#collaboration" as const, label: tHeader("collaboration"), n: "04" },
-                  { href: "/#contact" as const, label: tHeader("contact"), n: "05" },
+                  { href: "/#services" as const, label: tHeader("services"), n: "04" },
+                  { href: "/#collaboration" as const, label: tHeader("collaboration"), n: "05" },
+                  { href: "/#faq" as const, label: tHeader("faq"), n: "06" },
+                  { href: "/#contact" as const, label: tHeader("contact"), n: "07" },
                 ].map((l) => (
                   <li key={l.href}>
                     <AnchorLink href={l.href} className="group inline-flex min-h-[48px] items-center gap-3 transition-colors duration-300 hover:text-accent">
@@ -159,11 +166,11 @@ export async function SiteFooter() {
                 </li>
               </ul>
               <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-                <AnchorLink href="/#contact" className="group inline-flex min-h-[48px] items-center gap-2 rounded-full bg-brandDark px-6 py-3 text-[13px] font-bold text-white shadow-[0_8px_24px_rgba(28,25,23,0.18)] transition-[transform,box-shadow,background-color] duration-300 hover:-translate-y-0.5 hover:bg-black hover:shadow-[0_12px_32px_rgba(28,25,23,0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:bg-white dark:text-stone-950 dark:hover:bg-accent">
+                <AnchorLink href="/#contact" className="group inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-brandDark px-6 py-3 text-[13px] font-bold text-white shadow-[0_8px_24px_rgba(28,25,23,0.18)] transition-[transform,box-shadow,background-color] duration-300 hover:-translate-y-0.5 hover:bg-black hover:shadow-[0_12px_32px_rgba(28,25,23,0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:w-[190px] dark:bg-white dark:text-stone-950 dark:hover:bg-accent">
                   {tFooter("start")}
                   <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
                 </AnchorLink>
-                <Link href="/work" className="group inline-flex min-h-[48px] items-center gap-1.5 text-[13px] font-bold text-ink/80 transition-colors duration-300 hover:text-accent dark:text-white/80 dark:hover:text-accent">
+                <Link href="/work" className="group inline-flex min-h-[48px] w-full items-center justify-center gap-1.5 rounded-full border border-border px-6 py-3 text-[13px] font-bold text-ink transition-[color,border-color,background-color] duration-300 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:w-[190px] dark:border-white/20 dark:text-white dark:hover:border-accent dark:hover:text-accent">
                   {tFooter("allProjects")}
                   <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
                 </Link>

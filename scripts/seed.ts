@@ -21,7 +21,7 @@ async function main() {
   if (existingLinks.length === 0) {
     for (const [i, l] of [
       { platform: "GitHub", url: "https://github.com/" },
-      { platform: "LinkedIn", url: "https://linkedin.com/" },
+      { platform: "LinkedIn", url: "https://www.linkedin.com/in/romaric-gbenou-174a853b5" },
       { platform: "WhatsApp", url: "https://wa.me/2290161642237" },
     ].entries()) {
       await db.orm.public.SocialLink.create({ ...l, label: null, displayOrder: i, profileId: profile.id });

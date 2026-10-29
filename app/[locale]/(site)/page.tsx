@@ -138,7 +138,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   }))[0] ?? null;
 
   return (
-    <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6 pt-12 md:pt-16 space-y-16 md:space-y-28 pb-16">
+    <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6 pt-12 md:pt-16 space-y-16 md:space-y-28">
       {/* Hero */}
       <section id="hero" className="pt-6 sm:pt-10">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
@@ -431,7 +431,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </Reveal>
 
       {/* Contact */}
-      <Reveal>
+      <Reveal className="mb-0">
       <Suspense>
       <ContactSection profile={profile} />
       </Suspense>

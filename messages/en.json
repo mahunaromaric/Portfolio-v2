@@ -6,7 +6,8 @@
     "experience": "Experience",
     "services": "Services",
     "collaboration": "Collaboration",
-    "contact": "Contact"
+    "contact": "Contact",
+    "faq": "FAQ"
   },
   "seo": {
     "home": "Product Builder in Cotonou: custom web apps with React, Next.js, Laravel. Free first exchange, written proposal."

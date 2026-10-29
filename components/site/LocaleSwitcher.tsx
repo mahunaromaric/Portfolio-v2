@@ -18,11 +18,11 @@ export function LocaleSwitcher() {
   };
 
   return (
-    <div className="flex items-center gap-1 rounded-full border border-border bg-surface p-1 text-xs font-bold">
+    <div className="flex items-center gap-0.5 rounded-full border border-border bg-surface p-[3px] text-[11px] font-bold">
       <button
         onClick={() => switchLocale("fr")}
         disabled={isPending}
-        className={`px-2.5 py-2 min-h-[48px] min-w-[48px] inline-flex items-center justify-center rounded-full transition ${locale === "fr" ? "bg-brandDark text-white" : "text-secondary hover:text-ink"}`}
+        className={`inline-flex h-9 min-w-9 items-center justify-center rounded-full px-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-60 ${locale === "fr" ? "bg-ink text-bg" : "text-secondary hover:text-ink"}`}
         aria-label="Français"
       >
         FR
@@ -30,7 +30,7 @@ export function LocaleSwitcher() {
       <button
         onClick={() => switchLocale("en")}
         disabled={isPending}
-        className={`px-2.5 py-2 min-h-[48px] min-w-[48px] inline-flex items-center justify-center rounded-full transition ${locale === "en" ? "bg-brandDark text-white" : "text-secondary hover:text-ink"}`}
+        className={`inline-flex h-9 min-w-9 items-center justify-center rounded-full px-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-60 ${locale === "en" ? "bg-ink text-bg" : "text-secondary hover:text-ink"}`}
         aria-label="English"
       >
         EN
