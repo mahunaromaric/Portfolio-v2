@@ -5,8 +5,9 @@ import { routing } from "@/i18n/routing";
 import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/site/ThemeProvider";
 import { TopLoader } from "@/components/site/TopLoader";
+import { PERSON_KEYWORDS, PERSON_NAME, SITE_URL } from "@/lib/seo";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mahuna.is-a.dev";
+const siteUrl = SITE_URL;
 const siteName = "Romaric GBENOU — Product Builder";
 
 export async function generateMetadata({
@@ -17,16 +18,16 @@ export async function generateMetadata({
   const { locale } = await params;
   const isEn = locale === "en";
   const description = isEn
-    ? "Product Builder · Developer. I design useful digital products, from idea to interface, with solid technical foundations and attention to detail."
-    : "Product Builder · Développeur. Je conçois des produits numériques utiles, de l’idée à l’interface, avec une base technique solide et le souci du détail.";
+    ? "Romaric GBENOU (Mahuna) — Product Builder & Developer. I design useful digital products, from idea to interface, with solid technical foundations and attention to detail."
+    : "Romaric GBENOU (Mahuna) — Product Builder & Développeur. Je conçois des produits numériques utiles, de l’idée à l’interface, avec une base technique solide et le souci du détail.";
   return {
     metadataBase: new URL(siteUrl),
     alternates: { canonical: isEn ? "/en" : "/", languages: { fr: "/", en: "/en" } },
     title: { default: siteName, template: `%s — ${siteName}` },
     description,
-    keywords: ["Product Builder", "Développeur Cotonou", "React", "Next.js", "Laravel", "Développeur Web Bénin"],
-    authors: [{ name: "Romaric GBENOU", url: siteUrl }],
-    creator: "Romaric GBENOU",
+    keywords: PERSON_KEYWORDS,
+    authors: [{ name: PERSON_NAME, url: siteUrl }],
+    creator: PERSON_NAME,
     openGraph: {
       type: "website",
       locale: isEn ? "en_US" : "fr_FR",

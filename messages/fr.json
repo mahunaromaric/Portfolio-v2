@@ -10,7 +10,7 @@
     "faq": "FAQ"
   },
   "seo": {
-    "home": "Product Builder à Cotonou : applications web sur mesure React, Next.js, Laravel. Échange gratuit, proposition écrite."
+    "home": "Romaric GBENOU (Mahuna), Product Builder à Cotonou : applications web sur mesure React, Next.js, Laravel. Échange gratuit, proposition écrite."
   },
   "hero": {
     "available": "Disponible pour nouveaux projets",
@@ -102,7 +102,7 @@
   "footer": {
     "thanks": "Un projet en tête ?",
     "build": "Écrivez-moi — réponse sous 24h",
-    "rights": "Product Builder · Développeur — © {year}",
+    "rights": "© {year} Romaric GBENOU (Mahuna) — Product Builder · Développeur",
     "allProjects": "Tous les projets",
     "nav": "Navigation",
     "contact": "Contact",
@@ -136,7 +136,7 @@
     "updated": "Dernière mise à jour : octobre 2026",
     "intro": "Ce site est un portfolio personnel. Les informations ci-dessous précisent son éditeur, son hébergement et les règles applicables à son contenu.",
     "publisherTitle": "Éditeur du site",
-    "publisherBody": "Romaric GBENOU — Product Builder et développeur indépendant, établi à Cotonou, Bénin. Pour toute question relative au site :",
+    "publisherBody": "Romaric GBENOU (Mahuna) — Product Builder et développeur indépendant, établi à Cotonou, Bénin. Pour toute question relative au site :",
     "hostTitle": "Hébergement",
     "hostBody": "Le site est hébergé par Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis — vercel.com.",
     "ipTitle": "Propriété intellectuelle",

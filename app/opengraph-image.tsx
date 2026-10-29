@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Romaric GBENOU — Product Builder";
+export const alt = "Romaric GBENOU (Mahuna) — Product Builder";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

@@ -8,6 +8,7 @@ import { routing } from "@/i18n/routing";
 import { getProjectBySlug, getPublishedProjects } from "@/lib/dal/public";
 import { CaseStudyRenderer, type CaseBlock } from "@/components/site/CaseStudyRenderer";
 import { getTranslations } from "next-intl/server";
+import { PERSON_ALTERNATE_NAMES, PERSON_NAME, SITE_URL } from "@/lib/seo";
 
 export const revalidate = 60;
 const W = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8";
@@ -18,7 +19,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params; const project = await getProjectBySlug(slug); const t = await getTranslations({ locale, namespace: "workDetail" }); if (!project) return { title: t("notFound") };
   const cover = project.media.find((m) => m.link.isCover)?.media ?? project.media[0]?.media ?? null;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mahuna.is-a.dev";
+  const siteUrl = SITE_URL;
   const url = `${siteUrl}/work/${slug}`;
   return {
     title: project.title,
@@ -50,7 +51,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ loc
       for (const m of more) mediaById.set(m.id, { url: m.url, alt: m.alt });
     }
   }
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mahuna.is-a.dev";
+  const siteUrl = SITE_URL;
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -65,7 +66,13 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ loc
     "@type": "CreativeWork",
     name: localizedProject.title,
     description: localizedProject.shortDescription,
-    author: { "@type": "Person", name: "Romaric GBENOU" },
+    author: {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: PERSON_NAME,
+      alternateName: [...PERSON_ALTERNATE_NAMES],
+      url: SITE_URL,
+    },
     datePublished: project.createdAt,
     image: cover?.url || undefined,
   };

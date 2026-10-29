@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Romaric GBENOU — Product Builder",
+    name: "Romaric GBENOU (Mahuna) — Product Builder",
     short_name: "RG Portfolio",
-    description: "Product Builder · Développeur — Cotonou, Bénin",
+    description: "Romaric GBENOU (Mahuna) — Product Builder · Développeur — Cotonou, Bénin",
     start_url: "/",
     display: "standalone",
     background_color: "#FAFAF9",

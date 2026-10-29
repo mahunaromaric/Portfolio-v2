@@ -18,6 +18,7 @@ import { Timeline } from "@/components/site/Timeline";
 import { db } from "@/prisma/db";
 import { getTranslations } from "next-intl/server";
 import { getFeaturedProjects, getProfile, getPublishedEducations, getPublishedExperiences, getPublishedServices, getTechnologiesGrouped, getCollaborationPhases } from "@/lib/dal/public";
+import { PERSON_ALIAS, PERSON_REF, SITE_URL, personJsonLd } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -28,8 +29,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: {
       absolute: isEn
-        ? "Romaric GBENOU — Web Developer in Cotonou"
-        : "Romaric GBENOU — Développeur Web à Cotonou",
+        ? "Romaric GBENOU (Mahuna) — Web Developer in Cotonou"
+        : "Romaric GBENOU (Mahuna) — Développeur Web à Cotonou",
     },
     description: t("seo.home"),
     alternates: { canonical: isEn ? "/en" : "/", languages: { fr: "/", en: "/en" } },
@@ -81,7 +82,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       ? { ...(p as object), title: (p as { titleEn: string }).titleEn, description: (p as { descriptionEn?: string | null }).descriptionEn || (p as { description: string }).description }
       : (p as object),
   ) as typeof phasesRaw;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mahuna.is-a.dev";
+  const siteUrl = SITE_URL;
+  const person = personJsonLd({
+    name: profile?.name,
+    description: isEn ? profile?.bioEn || profile?.bio : profile?.bio,
+    image: profile?.avatarUrl,
+    location: profile?.location,
+    sameAs: (profile?.socialLinks || []).map((s: { url: string }) => extUrl(s.url)).filter(Boolean),
+    locale,
+  });
   const projects = featured.slice(0, 6);
   const projectIds = projects.map((p) => p.id);
   const [allMediaLinks, allTechLinks] = await Promise.all([
@@ -150,7 +159,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <span>Cotonou, BJ</span>
             </div>
             <p className="text-sm font-medium tracking-wide text-secondary">
-              <GreetingRotator name={profile?.name ?? "Romaric GBENOU"} locale={locale} />
+              <GreetingRotator name={profile?.name ?? "Romaric GBENOU"} alias={PERSON_ALIAS} locale={locale} />
             </p>
             <h1 className="max-w-[680px] text-[clamp(42px,6.2vw,72px)] font-extrabold leading-[0.98] tracking-[-0.045em] text-ink text-balance">
               <Words text={t("hero.title1")} /> <br />
@@ -443,23 +452,30 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             "@context": "https://schema.org",
             "@graph": [
               {
-                "@type": "Person",
-                name: profile?.name || "Romaric GBENOU",
-                jobTitle: profile?.headline || "Product Builder",
+                "@type": "ProfilePage",
+                "@id": `${siteUrl}/#profile`,
+                name: "Romaric GBENOU (Mahuna) — Portfolio",
                 url: siteUrl,
-                address: { "@type": "PostalAddress", addressLocality: profile?.location || "Cotonou", addressCountry: "BJ" },
-                sameAs: (profile?.socialLinks || []).map((s: { url: string }) => extUrl(s.url)).filter(Boolean),
+                inLanguage: isEn ? "en-US" : "fr-FR",
+                mainEntity: person,
+                about: PERSON_REF,
               },
               {
                 "@type": "WebSite",
-                name: "Romaric GBENOU — Product Builder",
+                "@id": `${siteUrl}/#website`,
+                name: "Romaric GBENOU (Mahuna) — Product Builder",
+                alternateName: ["Mahuna", "Portfolio Romaric GBENOU"],
                 url: siteUrl,
-                inLanguage: "fr-FR",
+                inLanguage: isEn ? "en-US" : "fr-FR",
+                author: PERSON_REF,
+                publisher: PERSON_REF,
               },
               {
                 "@type": "ProfessionalService",
-                name: "Romaric GBENOU — Product Builder",
+                "@id": `${siteUrl}/#service`,
+                name: "Romaric GBENOU (Mahuna) — Product Builder",
                 url: siteUrl,
+                founder: PERSON_REF,
                 address: { "@type": "PostalAddress", addressLocality: profile?.location || "Cotonou", addressCountry: "BJ" },
                 knowsAbout: ["React", "Next.js", "Laravel", "PostgreSQL", "Node.js"],
                 sameAs: (profile?.socialLinks || []).map((s: { url: string }) => extUrl(s.url)).filter(Boolean),

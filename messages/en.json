@@ -10,7 +10,7 @@
     "faq": "FAQ"
   },
   "seo": {
-    "home": "Product Builder in Cotonou: custom web apps with React, Next.js, Laravel. Free first exchange, written proposal."
+    "home": "Romaric GBENOU (Mahuna), Product Builder in Cotonou: custom web apps with React, Next.js, Laravel. Free first exchange, written proposal."
   },
   "hero": {
     "available": "Available for new projects",
@@ -102,7 +102,7 @@
   "footer": {
     "thanks": "A project in mind?",
     "build": "Write to me — reply within 24h",
-    "rights": "Product Builder · Developer — © {year}",
+    "rights": "© {year} Romaric GBENOU (Mahuna) — Product Builder · Developer",
     "allProjects": "All projects",
     "nav": "Navigation",
     "contact": "Contact",
@@ -136,7 +136,7 @@
     "updated": "Last updated: October 2026",
     "intro": "This site is a personal portfolio. The information below identifies its publisher, hosting provider and the rules that apply to its content.",
     "publisherTitle": "Publisher",
-    "publisherBody": "Romaric GBENOU — Product Builder and independent developer, based in Cotonou, Benin. For any question about this site:",
+    "publisherBody": "Romaric GBENOU (Mahuna) — Product Builder and independent developer, based in Cotonou, Benin. For any question about this site:",
     "hostTitle": "Hosting",
     "hostBody": "This site is hosted by Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, United States — vercel.com.",
     "ipTitle": "Intellectual property",
