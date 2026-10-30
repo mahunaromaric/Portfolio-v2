@@ -1,26 +1,47 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
+import { createContext, useContext, useEffect, useState } from "react";
+
+type Theme = "light" | "dark";
+
+const ThemeContext = createContext<{ theme: Theme; setTheme: (t: Theme) => void } | null>(null);
 
 /**
  * Thème clair par défaut, quel que soit le réglage du système.
  *
- * Le choix explicite de l'utilisateur (toggle) reste conservé dans
- * localStorage ; `next-themes` injecte le script d'initialisation avant le
- * premier paint pour éviter tout flash.
+ * Le premier rendu est toujours light (identique au SSR) pour éviter tout
+ * mismatch d'hydratation. Après hydratation, le choix stocké dans
+ * localStorage est appliqué, puis le toggle reste conservé pour les visites
+ * suivantes.
  */
-export function ThemeProvider({ children }: { children: ReactNode }) {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setThemeState] = useState<Theme>("light");
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme") as Theme | null;
+    const initial = stored || "light";
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(initial);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setThemeState(initial);
+  }, []);
+
+  const setTheme = (t: Theme) => {
+    localStorage.setItem("theme", t);
+    setThemeState(t);
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(t);
+  };
+
   return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="light"
-      enableSystem={false}
-      disableTransitionOnChange
-    >
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
-    </NextThemesProvider>
+    </ThemeContext.Provider>
   );
 }
 
-export { useTheme };
+export function useTheme() {
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error("useTheme must be inside ThemeProvider");
+  return ctx;
+}
