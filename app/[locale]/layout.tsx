@@ -28,6 +28,15 @@ export async function generateMetadata({
     keywords: PERSON_KEYWORDS,
     authors: [{ name: PERSON_NAME, url: siteUrl }],
     creator: PERSON_NAME,
+    icons: {
+      icon: [
+        { url: '/brand/sillon-icon-48.png', sizes: '48x48', type: 'image/png' },
+        { url: '/brand/sillon-icon-96.png', sizes: '96x96', type: 'image/png' },
+        { url: '/brand/sillon-icon-192.png', sizes: '192x192', type: 'image/png' },
+      ],
+      apple: '/brand/sillon-apple-180.png',
+      shortcut: '/favicon.ico',
+    },
     openGraph: {
       type: "website",
       locale: isEn ? "en_US" : "fr_FR",
