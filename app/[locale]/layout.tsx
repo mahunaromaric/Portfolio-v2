@@ -76,7 +76,7 @@ export default async function LocaleLayout({
 
   return (
     <div className="min-h-full flex flex-col bg-bg text-ink antialiased">
-      <ThemeProvider attribute="class" defaultTheme="system">
+      <ThemeProvider>
         <NextIntlClientProvider messages={messages}>
           <TopLoader />
           <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:min-h-[48px] focus:inline-flex focus:items-center bg-ink text-white px-4 py-2 rounded-full text-xs z-50">
